@@ -1,0 +1,38 @@
+#:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
+
+#ScreenManagement:
+#    id: 'screenmgmt'
+#    transition: FallOutTransition()
+#    LoopVideoScreen:
+#    ButtonPressedScreen:
+#    ShowImageScreen:
+
+<ShowImageScreen>:
+    name: 'show_image'
+
+    Image:
+        source: '../IMG_0142.jpg'
+
+<LoopVideoScreen>:
+    name: 'loop_video'
+    video_loop: videotag
+
+    Video:
+        id: videotag
+        source: '../loopvideo.mp4'
+        #fullscreen: True
+        allow_fullscreen: True
+        state: 'play'
+        options: {'eos': 'loop', 'fullscreen': True, 'allow_stretch': True}
+
+<ButtonPressedScreen>:
+    name: 'button_pressed'
+    video_buttonpressed: videotag
+
+    Video:
+        id: videotag
+        source: '../buttonpressed.mp4'
+        #fullscreen: True
+        allow_fullscreen: True
+        state: 'pause'
+        options: {'eos': 'stop', 'fullscreen': True, 'allow_stretch': True}
