@@ -1,7 +1,7 @@
 from kivy.logger import Logger
 import time
 from ButtonController import ButtonController
-from CameraController import CameraController
+from CameraControllerDummy import CameraControllerDummy
 from CollageCreator import CollageCreator
 
 class Controller():
@@ -10,9 +10,10 @@ class Controller():
 
     def start(self):
         self.button = ButtonController(self)
-        self.camera = CameraController(self)
+        self.camera = CameraControllerDummy(self)
         self.creator = CollageCreator(self)
 
+        #self.camera.initCamera()
         self.button.start()
 
     def buttonPressed(self):

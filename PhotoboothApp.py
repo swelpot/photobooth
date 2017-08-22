@@ -2,6 +2,7 @@ import argparse
 import warnings
 import json
 import pprint
+import logging
 import kivy
 
 kivy.require('1.10.0')
@@ -103,6 +104,8 @@ class MainApp(App):
 
 if __name__ == '__main__':
     Config.set("kivy", "log_level", "debug")
+    logging.root = Logger
+
     # construct the argument parser and parse the arguments
     ap = argparse.ArgumentParser()
     ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
