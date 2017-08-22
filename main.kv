@@ -1,16 +1,11 @@
 #:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
 
-#ScreenManagement:
-#    id: 'screenmgmt'
-#    transition: FallOutTransition()
-#    LoopVideoScreen:
-#    ButtonPressedScreen:
-#    ShowImageScreen:
-
 <ShowImageScreen>:
     name: 'show_image'
+    image_path: imagetag
 
     Image:
+        id: imagetag
         source: '../IMG_0142.jpg'
 
 <LoopVideoScreen>:
