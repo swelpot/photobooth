@@ -1,5 +1,7 @@
 import subprocess
 import time
+
+import os
 from kivy.logger import Logger
 import gphoto2 as gp
 import logging
