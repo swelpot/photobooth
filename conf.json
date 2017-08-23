@@ -1,4 +1,6 @@
 {
 	"app.video_loop": "../loopvideo.mp4",
-	"app.video_buttonpressed": "../buttonpressed.mp4"
+	"app.video_buttonpressed": "../buttonpressed.mp4",
+	"segment_display.time_to_prepare": 10,
+	"photo.target_path": "../photos/"
 }

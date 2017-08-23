@@ -1,11 +1,13 @@
-import os
+import subprocess
+import time
 from kivy.logger import Logger
 import gphoto2 as gp
 import logging
 
 class CameraController():
-    def __init__(self, controller):
+    def __init__(self, controller, target_path):
         self.controller = controller
+        self.target_path = target_path
 
         gp.use_python_logging(mapping={
             gp.GP_LOG_ERROR: logging.INFO,
@@ -14,9 +16,15 @@ class CameraController():
             gp.GP_LOG_DATA: logging.DEBUG - 6})
 
     def initCamera(self):
+#        img = subprocess.check_output(['gphoto2', '--set-config capturetarget=1'])
+#        Logger.info('Config: {0}'.format(img))
+
         self.context = gp.gp_context_new()
         error, self.camera = gp.gp_camera_new()
         error = gp.gp_camera_init(self.camera, self.context)
+
+        self.set_capture_target()
+
         if error >= gp.GP_OK:
             # operation completed successfully so exit loop
             return
@@ -24,21 +32,54 @@ class CameraController():
             # some other error we can't handle here
             raise gp.GPhoto2Error(error)
 
+    def set_capture_target(self):
+        value = 1
+
+        # get configuration tree
+        config = gp.check_result(gp.gp_camera_get_config(self.camera, self.context))
+        # find the capture target config item
+        capture_target = gp.check_result(
+            gp.gp_widget_get_child_by_name(config, 'capturetarget'))
+        # check value in range
+        #count = gp.check_result(gp.gp_widget_count_choices(capture_target))
+
+        #if value < 0 or value >= count:
+        #    print('Parameter out of range')
+
+        #return 1
+        # set value
+        value = gp.check_result(gp.gp_widget_get_choice(capture_target, value))
+        gp.check_result(gp.gp_widget_set_value(capture_target, value))
+        # set config
+        gp.check_result(gp.gp_camera_set_config(self.camera, config, self.context))
+        # clean up
+        #gp.check_result(gp.gp_camera_exit(camera, context))
+
     def shoot(self):
         Logger.debug("CameraController.shoot()")
-        image1 = self.captureImage()
+        image1 = self.capture_image()
         return [image1]
 
-    def captureImage(self):
+    def capture_image(self):
+        # img = subprocess.check_output(['gphoto2', '--capture-image-and-download'])
+        # Logger.info('Image: {0}'.format(img))
+        # return img
         Logger.info('Capturing image')
         file_path = gp.check_result(gp.gp_camera_capture(
             self.camera, gp.GP_CAPTURE_IMAGE, self.context))
+
         Logger.debug('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
-        target = os.path.join('/tmp', file_path.name)
-        Logger.debug('Copying image to', target)
+        target_rel = os.path.join(self.target_path, file_path.name)
+        target_abs = os.path.abspath(target_rel)
+        Logger.debug('Copying image to {0}'.format(target_abs))
+
         camera_file = gp.check_result(gp.gp_camera_file_get(
             self.camera, file_path.folder, file_path.name,
             gp.GP_FILE_TYPE_NORMAL, self.context))
-        gp.check_result(gp.gp_file_save(camera_file, target))
+        gp.check_result(gp.gp_file_save(camera_file, str(target_abs)))
+
+        gp.gp_file_free(camera_file)
+
         error = gp.gp_camera_exit(self.camera, self.context)
-        return target
+        time.sleep(2)
+        return str(target_abs)

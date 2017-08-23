@@ -58,9 +58,9 @@ class ButtonPressedScreen(Screen):
 class ShowImageScreen(Screen):
     image_path = ObjectProperty()
 
-    def setImage(self, image):
-        Logger.debug("ShowImageScreen.setImage()")
-        self.image_path.source = image
+    def set_image(self, image):
+        Logger.debug("ShowImageScreen.set_image() with {0}".format(image))
+        self.image_path.source = image #"../IMG_0142.jpg"
 
 class ScreenManagement(ScreenManager):
     pass
@@ -69,36 +69,36 @@ class ScreenManagement(ScreenManager):
 class MainApp(App):
     def __init__(self, **kwargs):
         super(MainApp, self).__init__(**kwargs)
-        self.scrLoopVideo = LoopVideoScreen()
-        self.scrButtonPressed = ButtonPressedScreen()
-        self.scrImage = ShowImageScreen()
+        self.scr_loop_video = LoopVideoScreen()
+        self.scr_button_pressed = ButtonPressedScreen()
+        self.scr_image = ShowImageScreen()
 
     def build(self):
         Logger.debug("MainApp.build()")
-        self.scrLoopVideo.init_video(conf.get("app.video_loop"))
-        self.scrButtonPressed.init_video(conf.get("app.video_buttonpressed"))
+        self.scr_loop_video.init_video(conf.get("app.video_loop"))
+        self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
         self.sm = ScreenManagement()
-        self.sm.add_widget(self.scrLoopVideo)
-        self.sm.add_widget(self.scrButtonPressed)
-        self.sm.add_widget(self.scrImage)
+        self.sm.add_widget(self.scr_loop_video)
+        self.sm.add_widget(self.scr_button_pressed)
+        self.sm.add_widget(self.scr_image)
 
         return self.sm
 
     def buttonPressed(self):
         Logger.debug("MainApp.buttonPressed()")
-        self.scrLoopVideo.stop()
-        self.scrButtonPressed.play()
+        self.scr_loop_video.stop()
+        self.scr_button_pressed.play()
         self.sm.current = 'button_pressed'
 
-    def showImage(self, imagepath):
-        Logger.debug("MainApp.showImage() with {0}".format(imagepath))
-        self.scrImage.setImage(imagepath)
+    def show_image(self, imagepath):
+        Logger.debug("MainApp.show_image() with {0}".format(imagepath))
+        self.scr_image.set_image(imagepath)
         self.sm.current = 'show_image'
 
-    def showLoopVideo(self):
+    def show_loop_video(self):
         Logger.debug("MainApp.showLoopVideo()")
-        self.scrLoopVideo.play()
+        self.scr_loop_video.play()
         self.sm.current = 'loop_video'
 
 
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # Window.fullscreen = 'auto'
     mainApp = MainApp()
 
-    controller = Controller(mainApp)
+    controller = Controller(mainApp, conf)
     controller.start()
 
     mainApp.run()
