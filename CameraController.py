@@ -80,8 +80,8 @@ class CameraController():
             gp.GP_FILE_TYPE_NORMAL, self.context))
         gp.check_result(gp.gp_file_save(camera_file, str(target_abs)))
 
-        gp.gp_file_free(camera_file)
+        #gp.gp_file_free(camera_file)
 
         error = gp.gp_camera_exit(self.camera, self.context)
-        time.sleep(2)
+        #time.sleep(2)
         return str(target_abs)
