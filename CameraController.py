@@ -26,17 +26,19 @@ class CameraController():
 
     def shoot(self):
         Logger.debug("CameraController.shoot()")
-        return ["../IMG_0142.jpg"]
+        image1 = self.captureImage()
+        return [image1]
 
-    def shootNew(self):
-        print('Capturing image')
+    def captureImage(self):
+        Logger.info('Capturing image')
         file_path = gp.check_result(gp.gp_camera_capture(
             self.camera, gp.GP_CAPTURE_IMAGE, self.context))
-        print('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
+        Logger.debug('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
         target = os.path.join('/tmp', file_path.name)
-        print('Copying image to', target)
+        Logger.debug('Copying image to', target)
         camera_file = gp.check_result(gp.gp_camera_file_get(
             self.camera, file_path.folder, file_path.name,
             gp.GP_FILE_TYPE_NORMAL, self.context))
         gp.check_result(gp.gp_file_save(camera_file, target))
         error = gp.gp_camera_exit(self.camera, self.context)
+        return target
