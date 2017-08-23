@@ -13,7 +13,7 @@ class ButtonController(Thread):
         #while True:
             # wait for Button pressed
 
-        time.sleep(25)
+        time.sleep(5)
         self.buttonPressed()
 
     def buttonPressed(self):
