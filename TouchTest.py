@@ -21,6 +21,7 @@ class MainApp(App):
 
     def callback(self, instance):
         print('The button <%s> is being pressed' % instance.text)
+        exit(0)
 
 
 if __name__ == '__main__':
