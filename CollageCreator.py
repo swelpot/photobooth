@@ -12,6 +12,6 @@ class CollageCreator():
         #     img.sample(1280, 800)
         #     img.format = 'jpeg'
         #     img.save(filename='testresize.jpg')
-        #return '../photos/IMG_5834.JPG' #photos[0]
-        return '../IMG_5834.JPG'
+        return '../photos/IMG_5834.JPG' #photos[0]
+        #return '../IMG_5834.JPG'
         #return '../IMG_0142.jpg'
