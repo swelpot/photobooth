@@ -47,7 +47,7 @@ class ButtonPressedScreen(Screen):
 
     def init_video(self, video_files):
         Logger.debug("ButtonPressedScreen.init_video()")
-        #self.video_buttonpressed.source = video_files
+        self.video_buttonpressed.source = video_files
 
     def play(self):
         Logger.debug("ButtonPressedScreen.play()")
@@ -80,7 +80,7 @@ class MainApp(App):
     def build(self):
         Logger.debug("MainApp.build()")
         Clock.schedule_interval(self.inner_button_pressed, 0.1)
-        Clock.schedule_interval(self.inner_show_image, 5)
+        Clock.schedule_interval(self.inner_show_image, 0.5)
 
         self.scr_loop_video.init_video(conf.get("app.video_loop"))
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
