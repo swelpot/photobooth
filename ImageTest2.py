@@ -34,12 +34,15 @@ class MenuScreen(Screen):
         self.updated = False
 
     def set_image(self, image):
+        print 'set_image'
         self.img = image
         self.updated = True
         Clock.schedule_once(self.inner_set_image, 1)
 
     def inner_set_image(self, *args):
+        print 'inner_set_image'
         if self.updated:
+            print 'inner_set_image updated'
             self.image_path.source = self.img
             self.updated = False
 
