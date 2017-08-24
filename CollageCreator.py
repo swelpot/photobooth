@@ -1,5 +1,5 @@
 from kivy.logger import Logger
-
+from wand.image import Image
 
 class CollageCreator():
     def __init__(self, controller):
@@ -7,4 +7,9 @@ class CollageCreator():
 
     def collage(self, photos):
         Logger.debug("CollageCreator.collage() with {0}".format(photos))
-        return photos[0]
+
+        with Image(filename=photos[0]) as img:
+            img.sample(1280, 800)
+            img.format = 'jpeg'
+            img.save(filename='testresize.jpg')
+        return 'testresize.jpg' #photos[0]

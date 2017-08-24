@@ -30,7 +30,7 @@ class Controller():
         photos = self.camera.shoot()
         collage = self.creator.collage(photos)
         self.app.show_image(collage)
-        time.sleep(10)
-        self.app.show_loop_video()
+        #time.sleep(10)
+        #self.app.show_loop_video()
 
 
