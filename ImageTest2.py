@@ -17,10 +17,10 @@ Builder.load_string("""
     BoxLayout:
         Button:
             text: 'Goto settings'
-            #on_press: root.set_image('../IMG_0142.jpg')
+            #on_press: root.set_image('../IMG_0142.JPG')
         AsyncImage:
             id: imagetag
-            source: '../IMG_5834.jpg'
+            source: '../IMG_5834.JPG'
 
 """)
 
@@ -59,7 +59,7 @@ class MyTh(Thread):
 
     def run(self):
         time.sleep(10)
-        self.app.set_image('../IMG_0142.jpg')
+        self.app.set_image('../IMG_0142.JPG')
 
 
 if __name__ == '__main__':
