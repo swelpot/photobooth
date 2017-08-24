@@ -73,8 +73,15 @@ class MainApp(App):
         self.scr_button_pressed = ButtonPressedScreen()
         self.scr_image = ShowImageScreen()
 
+        self.button_pressed = False
+        self.image_updated = False
+        self.image_path = ''
+
     def build(self):
         Logger.debug("MainApp.build()")
+        Clock.schedule_interval(self.inner_button_pressed, 0.1)
+        Clock.schedule_interval(self.inner_show_image, 0.5)
+
         self.scr_loop_video.init_video(conf.get("app.video_loop"))
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
@@ -85,21 +92,36 @@ class MainApp(App):
 
         return self.sm
 
-    def button_pressed(self):
-        Logger.debug("MainApp.button_pressed()")
-        self.scr_loop_video.stop()
-        self.scr_button_pressed.play()
-        self.sm.current = 'button_pressed'
+    def inner_button_pressed(self, *args):
+        if self.button_pressed:
+            Logger.debug("MainApp.inner_button_pressed()")
+            self.button_pressed = False
+            self.scr_loop_video.stop()
+            self.scr_button_pressed.play()
+            self.sm.current = 'button_pressed'
 
-    def show_image(self, imagepath):
-        Logger.debug("MainApp.show_image() with {0}".format(imagepath))
-        self.scr_image.set_image(imagepath)
-        self.sm.current = 'show_image'
+    def inner_show_image(self, *args):
+        #Logger.debug("MainApp.show_image()")
+        if self.image_updated:
+            Logger.debug("MainApp.inner_show_image(): Updating image with {}".format(self.image_path))
+            self.image_updated = False
+            self.scr_image.set_image(self.image_path)
+            self.sm.current = 'show_image'
 
-    def show_loop_video(self):
+            Clock.schedule_once(self.inner_show_loop_video, conf.get("app.image_show_duration"))
+
+    def inner_show_loop_video(self, *args):
         Logger.debug("MainApp.show_loop_video()")
         self.scr_loop_video.play()
         self.sm.current = 'loop_video'
+
+    def update_button_pressed(self):
+        self.button_pressed = True
+
+    def update_image(self, imagepath):
+        Logger.debug("MainApp.update_image() with {0}".format(imagepath))
+        self.image_path = imagepath
+        self.image_updated = True
 
 
 if __name__ == '__main__':

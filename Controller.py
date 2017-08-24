@@ -18,21 +18,29 @@ class Controller():
         self.camera = CameraController(self, self.conf.get("photo.target_path"))
         self.creator = CollageCreator(self)
 
-        self.camera.initCamera()
+        #self.camera.initCamera()
         self.button.start()
 
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
         self.button.lights_off()
-        self.app.button_pressed()
+
+        # trigger switch to countdown screen
+        self.app.update_button_pressed()
+
         self.seg_display.start()
-        #time.sleep(2)
+
+        # wait for trigger delay
+        time.sleep(self.conf.get("photo.trigger_delay"))
+        # shoot photo
         #photos = self.camera.shoot()
         photos=['../IMG_5834.jpg']
+
         collage = self.creator.collage(photos)
-        self.app.show_image(collage)
-        time.sleep(10)
-        self.app.show_loop_video()
+
+        # update gui image
+        self.app.update_image(collage)
+
         self.button.lights_on()
 
 
