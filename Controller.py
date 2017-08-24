@@ -24,9 +24,9 @@ class Controller():
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
         self.button.lights_off()
-        self.app.button_pressed()
+        #self.app.button_pressed()
         self.seg_display.start()
-        time.sleep(2)
+        #time.sleep(2)
         #photos = self.camera.shoot()
         photos=''
         collage = self.creator.collage(photos)

@@ -79,8 +79,8 @@ class MainApp(App):
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
         self.sm = ScreenManagement()
-        self.sm.add_widget(self.scr_loop_video)
-        self.sm.add_widget(self.scr_button_pressed)
+        #self.sm.add_widget(self.scr_loop_video)
+        #self.sm.add_widget(self.scr_button_pressed)
         self.sm.add_widget(self.scr_image)
 
         return self.sm
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     # construct the argument parser and parse the arguments
     ap = argparse.ArgumentParser()
     ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
-    ap.add_argument("-lf", "--logfile", default="photobooth.log", dest="logfile", help="logfile path")
+    #ap.add_argument("-lf", "--logfile", default="photobooth.log", dest="logfile", help="logfile path")
     args = vars(ap.parse_args())
 
     # Logger.basicConfig(#filename=args["logfile"],
