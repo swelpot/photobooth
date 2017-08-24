@@ -86,7 +86,7 @@ class MainApp(App):
         return self.sm
 
     def button_pressed(self):
-        Logger.debug("MainApp.buttonPressed()")
+        Logger.debug("MainApp.button_pressed()")
         self.scr_loop_video.stop()
         self.scr_button_pressed.play()
         self.sm.current = 'button_pressed'
@@ -97,7 +97,7 @@ class MainApp(App):
         self.sm.current = 'show_image'
 
     def show_loop_video(self):
-        Logger.debug("MainApp.showLoopVideo()")
+        Logger.debug("MainApp.show_loop_video()")
         self.scr_loop_video.play()
         self.sm.current = 'loop_video'
 

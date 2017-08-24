@@ -27,8 +27,8 @@ class Controller():
         self.app.button_pressed()
         self.seg_display.start()
         #time.sleep(2)
-        photos = self.camera.shoot()
-        #photos=''
+        #photos = self.camera.shoot()
+        photos=['../IMG_5834.jpg']
         collage = self.creator.collage(photos)
         self.app.show_image(collage)
         time.sleep(10)
