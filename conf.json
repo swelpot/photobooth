@@ -4,5 +4,5 @@
 	"app.image_show_duration": 10,
 	"segment_display.time_to_prepare": 10,
 	"photo.target_path": "../photos/",
-	"photo.trigger_delay": 8
+	"photo.trigger_delay": 4
 }
