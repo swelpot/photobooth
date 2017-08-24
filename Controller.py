@@ -18,21 +18,21 @@ class Controller():
         self.camera = CameraController(self, self.conf.get("photo.target_path"))
         self.creator = CollageCreator(self)
 
-        #self.camera.initCamera()
+        self.camera.initCamera()
         self.button.start()
 
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
         self.button.lights_off()
-        #self.app.button_pressed()
+        self.app.button_pressed()
         self.seg_display.start()
         #time.sleep(2)
-        #photos = self.camera.shoot()
-        photos=''
+        photos = self.camera.shoot()
+        #photos=''
         collage = self.creator.collage(photos)
         self.app.show_image(collage)
-        #time.sleep(10)
-        #self.app.show_loop_video()
-        #self.button.lights_on()
+        time.sleep(10)
+        self.app.show_loop_video()
+        self.button.lights_on()
 
 

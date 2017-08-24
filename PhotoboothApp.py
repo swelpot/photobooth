@@ -79,8 +79,8 @@ class MainApp(App):
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
         self.sm = ScreenManagement()
-        #self.sm.add_widget(self.scr_loop_video)
-        #self.sm.add_widget(self.scr_button_pressed)
+        self.sm.add_widget(self.scr_loop_video)
+        self.sm.add_widget(self.scr_button_pressed)
         self.sm.add_widget(self.scr_image)
 
         return self.sm
@@ -93,8 +93,8 @@ class MainApp(App):
 
     def show_image(self, imagepath):
         Logger.debug("MainApp.show_image() with {0}".format(imagepath))
-        self.sm.current = 'show_image'
         self.scr_image.set_image(imagepath)
+        self.sm.current = 'show_image'
 
     def show_loop_video(self):
         Logger.debug("MainApp.showLoopVideo()")
