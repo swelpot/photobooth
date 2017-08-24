@@ -1,7 +1,7 @@
 {
 	"app.video_loop": "../loopvideo.mp4",
 	"app.video_buttonpressed": "../buttonpressed.mp4",
-	"app.image_show_duration": 10,
+	"app.show_image_duration": 20,
 	"segment_display.time_to_prepare": 10,
 	"photo.target_path": "../photos/",
 	"photo.trigger_delay": 4
