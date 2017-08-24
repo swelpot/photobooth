@@ -14,14 +14,14 @@ class ButtonController(Thread):
             # wait for Button pressed
 
         time.sleep(5)
-        self.buttonPressed()
+        self.button_pressed()
 
-    def buttonPressed(self):
+    def button_pressed(self):
         Logger.debug("ButtonController.buttonPressed()")
-        self.controller.buttonPressed()
+        self.controller.button_pressed()
 
-    def lightsOff(self):
+    def lights_off(self):
         pass
 
-    def lightsOn(self):
+    def lights_on(self):
         pass

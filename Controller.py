@@ -21,10 +21,10 @@ class Controller():
         self.camera.initCamera()
         self.button.start()
 
-    def buttonPressed(self):
+    def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
-        self.button.lightsOff()
-        self.app.buttonPressed()
+        self.button.lights_off()
+        self.app.button_pressed()
         self.seg_display.start()
         time.sleep(2)
         photos = self.camera.shoot()
@@ -32,5 +32,6 @@ class Controller():
         self.app.show_image(collage)
         #time.sleep(10)
         #self.app.show_loop_video()
+        #self.button.lights_on()
 
 

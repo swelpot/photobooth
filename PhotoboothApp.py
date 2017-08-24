@@ -85,7 +85,7 @@ class MainApp(App):
 
         return self.sm
 
-    def buttonPressed(self):
+    def button_pressed(self):
         Logger.debug("MainApp.buttonPressed()")
         self.scr_loop_video.stop()
         self.scr_button_pressed.play()
@@ -93,8 +93,8 @@ class MainApp(App):
 
     def show_image(self, imagepath):
         Logger.debug("MainApp.show_image() with {0}".format(imagepath))
-        self.scr_image.set_image(imagepath)
         self.sm.current = 'show_image'
+        self.scr_image.set_image(imagepath)
 
     def show_loop_video(self):
         Logger.debug("MainApp.showLoopVideo()")
