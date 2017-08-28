@@ -143,7 +143,7 @@ if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
     Logger.info("Loaded Json config\n{}".format(pp.pformat(conf)))
 
-    presentation = Builder.load_file("main.kv")
+    #presentation = Builder.load_file("main.kv")
     # Window.fullscreen = 'auto'
     mainApp = MainApp()
 
