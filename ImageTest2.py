@@ -20,7 +20,7 @@ Builder.load_string("""
             #on_press: root.set_image('../IMG_0142.JPG')
         AsyncImage:
             id: imagetag
-            source: '../IMG_5859.JPG'
+            source: '../IMG_5834.JPG'
 
 """)
 
