@@ -18,7 +18,7 @@ class Controller():
         self.seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
         self.camera = CameraController(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
         self.creator = CollageCreator()
-        self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.resized"),
+        self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    self.conf.get("display.width"),
                                    self.conf.get("display.height"))
 
