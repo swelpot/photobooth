@@ -15,7 +15,6 @@ class Controller():
 
     def start(self):
         self.button = ButtonController(self)
-        self.seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
         self.camera = CameraController(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
         self.creator = CollageCreator()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
@@ -32,6 +31,7 @@ class Controller():
         # trigger switch to countdown screen
         self.app.update_button_pressed()
 
+        self.seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
         self.seg_display.start()
 
         # wait for trigger delay
