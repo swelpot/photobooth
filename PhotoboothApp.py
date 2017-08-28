@@ -114,7 +114,7 @@ class MainApp(App):
             time.sleep(2)
             self.sm.current = 'show_image'
 
-            Clock.schedule_once(self.inner_show_loop_video, conf.get("app.show_image_duration"))
+            #Clock.schedule_once(self.inner_show_loop_video, conf.get("app.show_image_duration"))
 
     def inner_show_loop_video(self, *args):
         Logger.debug("MainApp.show_loop_video()")
