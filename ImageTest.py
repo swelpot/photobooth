@@ -11,10 +11,7 @@ kivy.require('1.10.0')
 from kivy.app import App
 
 class ShowImageScreen(Screen):
-    image_path = ObjectProperty()
-
-    def set_image(self, image):
-        self.image_path.source = image #"../IMG_0142.jpg"
+    pass
 
 # Create the screen manager
 sm = ScreenManager()

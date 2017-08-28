@@ -20,7 +20,7 @@ Builder.load_string("""
             #on_press: root.set_image('../IMG_0142.JPG')
         AsyncImage:
             id: imagetag
-            source: '../IMG_5834.JPG'
+            source: '../IMG_5859.JPG'
 
 """)
 
@@ -67,5 +67,5 @@ class MyTh(Thread):
 
 if __name__ == '__main__':
     th = MyTh(menuscreen)
-    th.start()
+    #th.start()
     TestApp().run()
