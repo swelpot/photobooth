@@ -16,6 +16,9 @@ class ButtonController(Thread):
         time.sleep(5)
         self.button_pressed()
 
+        time.sleep(30)
+        self.button_pressed()
+
     def button_pressed(self):
         Logger.debug("ButtonController.buttonPressed()")
         self.controller.button_pressed()
