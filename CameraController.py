@@ -82,6 +82,6 @@ class CameraController():
 
         #gp.gp_file_free(camera_file)
 
-        #error = gp.gp_camera_exit(self.camera, self.context)
-        #time.sleep(2)
+        error = gp.gp_camera_exit(self.camera, self.context)
+        time.sleep(2)
         return str(target_abs)
