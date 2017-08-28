@@ -12,7 +12,7 @@ class CollageCreator():
             img.sample(1280, 800)
             img.format = 'jpeg'
             img.save(filename='testresize.jpg')
-            img.save()
+            #img.save()
         return 'testresize.jpg'
         #return photos[0]
         #return '../photos/IMG_5834.JPG' #photos[0]
