@@ -82,9 +82,10 @@ class MainApp(App):
         Clock.schedule_interval(self.inner_button_pressed, 0.1)
         Clock.schedule_interval(self.inner_show_image, 0.5)
 
-        Clock.schedule_once(self.init_video, 2)
+        Clock.schedule_once(self.init_video, 5)
 
         self.sm = ScreenManagement()
+        #self.sm.add_widget(self.scr_start)
         self.sm.add_widget(self.scr_loop_video)
         self.sm.add_widget(self.scr_button_pressed)
         self.sm.add_widget(self.scr_image)
