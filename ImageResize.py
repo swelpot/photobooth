@@ -15,7 +15,7 @@ class ImageResize():
         target = self.path + ntpath.basename(file)
 
         with Image(filename = file) as img:
-            img.sample(self.width, self.heigt)
+            img.sample(self.width, self.height)
             img.format = 'jpeg'
             img.save(filename = target)
 
