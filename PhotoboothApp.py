@@ -105,7 +105,7 @@ class MainApp(App):
         if self.image_updated:
             Logger.debug("MainApp.inner_show_image(): Updating image with {}".format(self.image_path))
             self.image_updated = False
-            #self.scr_image.set_image(self.image_path)
+            self.scr_image.set_image(self.image_path)
             self.sm.current = 'show_image'
 
             Clock.schedule_once(self.inner_show_loop_video, conf.get("app.show_image_duration"))
