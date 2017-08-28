@@ -82,8 +82,7 @@ class MainApp(App):
         Clock.schedule_interval(self.inner_button_pressed, 0.1)
         Clock.schedule_interval(self.inner_show_image, 0.5)
 
-        self.scr_loop_video.init_video(conf.get("app.video_loop"))
-        self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
+        Clock.schedule_once(self.init_video, 2)
 
         self.sm = ScreenManagement()
         self.sm.add_widget(self.scr_loop_video)
@@ -91,6 +90,10 @@ class MainApp(App):
         self.sm.add_widget(self.scr_image)
 
         return self.sm
+
+    def init_video(self):
+        self.scr_loop_video.init_video(conf.get("app.video_loop"))
+        self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
     def inner_button_pressed(self, *args):
         if self.button_pressed:
