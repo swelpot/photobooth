@@ -2,7 +2,11 @@
 	"app.video_loop": "../loopvideo.mp4",
 	"app.video_buttonpressed": "../buttonpressed.mp4",
 	"app.show_image_duration": 20,
+	"display.width": 1280,
+	"display.height": 800,
 	"segment_display.time_to_prepare": 10,
-	"photo.target_path": "../photos/",
+	"photo.path_target": "../photos/",
+	"photo.path_originals": "org/",
+	"photo.path_resized": "resized/",
 	"photo.trigger_delay": 4
 }

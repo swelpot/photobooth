@@ -4,6 +4,7 @@ from ButtonController import ButtonController
 from CameraController import CameraController
 from CameraControllerDummy import CameraControllerDummy
 from CollageCreator import CollageCreator
+from ImageResize import ImageResize
 from SegmentDisplayController import SegmentDisplayController
 
 
@@ -15,8 +16,11 @@ class Controller():
     def start(self):
         self.button = ButtonController(self)
         self.seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
-        self.camera = CameraController(self, self.conf.get("photo.target_path"))
-        self.creator = CollageCreator(self)
+        self.camera = CameraController(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
+        self.creator = CollageCreator()
+        self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.resized"),
+                                   self.conf.get("display.width"),
+                                   self.conf.get("display.height"))
 
         self.camera.initCamera()
         self.button.start()
@@ -37,9 +41,10 @@ class Controller():
         #photos=['../IMG_5864.JPG']
 
         collage = self.creator.collage(photos)
+        resized = self.resizer.resize(collage)
 
         # update gui image
-        self.app.update_image(collage)
+        self.app.update_image(resized)
 
         self.button.lights_on()
 
