@@ -91,7 +91,7 @@ class MainApp(App):
 
         return self.sm
 
-    def init_video(self):
+    def init_video(self, *args):
         self.scr_loop_video.init_video(conf.get("app.video_loop"))
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
