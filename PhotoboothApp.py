@@ -82,7 +82,9 @@ class MainApp(App):
         Clock.schedule_interval(self.inner_button_pressed, 0.1)
         Clock.schedule_interval(self.inner_show_image, 0.5)
 
-        Clock.schedule_once(self.init_video, 5)
+#        Clock.schedule_once(self.init_video, 5)
+        self.scr_loop_video.init_video(conf.get("app.video_loop"))
+        self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
         self.sm = ScreenManagement()
         #self.sm.add_widget(self.scr_start)
@@ -147,7 +149,7 @@ if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
     Logger.info("Loaded Json config\n{}".format(pp.pformat(conf)))
 
-    #presentation = Builder.load_file("main.kv")
+    presentation = Builder.load_file("PhotoboothApp.kv")
     # Window.fullscreen = 'auto'
     mainApp = MainApp()
 
