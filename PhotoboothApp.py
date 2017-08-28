@@ -86,8 +86,8 @@ class MainApp(App):
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
         self.sm = ScreenManagement()
-        #self.sm.add_widget(self.scr_loop_video)
-        #self.sm.add_widget(self.scr_button_pressed)
+        self.sm.add_widget(self.scr_loop_video)
+        self.sm.add_widget(self.scr_button_pressed)
         self.sm.add_widget(self.scr_image)
 
         return self.sm
