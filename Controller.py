@@ -33,8 +33,8 @@ class Controller():
         # wait for trigger delay
         time.sleep(self.conf.get("photo.trigger_delay"))
         # shoot photo
-        photos = self.camera.shoot()
-        #photos=['../IMG_5834.JPG']
+        #photos = self.camera.shoot()
+        photos=['../IMG_5859.JPG']
 
         collage = self.creator.collage(photos)
 
