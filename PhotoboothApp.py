@@ -4,6 +4,7 @@ import json
 import pprint
 import logging
 import kivy
+import time
 
 kivy.require('1.10.0')
 
@@ -82,9 +83,7 @@ class MainApp(App):
         Clock.schedule_interval(self.inner_button_pressed, 0.1)
         Clock.schedule_interval(self.inner_show_image, 0.5)
 
-#        Clock.schedule_once(self.init_video, 5)
-        self.scr_loop_video.init_video(conf.get("app.video_loop"))
-        self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
+        self.init_video()
 
         self.sm = ScreenManagement()
         #self.sm.add_widget(self.scr_start)
@@ -94,7 +93,7 @@ class MainApp(App):
 
         return self.sm
 
-    def init_video(self, *args):
+    def init_video(self):
         self.scr_loop_video.init_video(conf.get("app.video_loop"))
         self.scr_button_pressed.init_video(conf.get("app.video_buttonpressed"))
 
@@ -112,6 +111,7 @@ class MainApp(App):
             Logger.debug("MainApp.inner_show_image(): Updating image with {}".format(self.image_path))
             self.image_updated = False
             self.scr_image.set_image(self.image_path)
+            time.sleep(2)
             self.sm.current = 'show_image'
 
             Clock.schedule_once(self.inner_show_loop_video, conf.get("app.show_image_duration"))
