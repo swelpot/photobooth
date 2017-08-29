@@ -1,3 +1,5 @@
+from LoggerPatch import LoggerPatch
+
 import argparse
 import warnings
 import json
