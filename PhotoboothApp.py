@@ -44,6 +44,13 @@ class LoopVideoScreen(Screen):
         Logger.debug("LoopVideoScreen.play()")
         self.video_loop.position = 0
         self.video_loop.state = 'play'
+        
+    def on_touch_down(self, touch):
+        print(touch)
+    def on_touch_move(self, touch):
+        print(touch)
+    def on_touch_up(self, touch):
+        print("RELEASED!",touch)        
 
 class ButtonPressedScreen(Screen):
     video_buttonpressed = ObjectProperty()
