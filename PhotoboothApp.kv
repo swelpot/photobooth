@@ -17,18 +17,13 @@
     name: 'loop_video'
     video_loop: videotag
 
-    FloatLayout:
-        Button:
-            text: "Kivy"
-            pos_hint: {"x": 0, 'y':0}
-	    on_press: button_pressed()
-        Video:
-            id: videotag
-            source: 'dummies/dummy.mp4'
-            #fullscreen: True
-            allow_fullscreen: True
-            state: 'play'
-            options: {'eos': 'loop', 'fullscreen': True, 'allow_stretch': True}
+    Video:
+        id: videotag
+        source: 'dummies/dummy.mp4'
+        #fullscreen: True
+        allow_fullscreen: True
+        state: 'play'
+        options: {'eos': 'loop', 'fullscreen': True, 'allow_stretch': True}
 
 <ButtonPressedScreen>:
     name: 'button_pressed'
