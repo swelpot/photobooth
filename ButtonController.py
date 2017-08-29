@@ -19,6 +19,7 @@ class ButtonController(Thread):
     def run(self):
         while True:
             input_state = GPIO.input(gpioPin)
+            Logger.debug("state: {0}".format(input_state))
             if input_state == False:
                 self.button_pressed()
                 time.sleep(0.2)
