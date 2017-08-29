@@ -50,7 +50,9 @@ class LoopVideoScreen(Screen):
     def on_touch_move(self, touch):
         print(touch)
     def on_touch_up(self, touch):
-        print("RELEASED!",touch)        
+        print("RELEASED!",touch)
+    def button_pressed(self):
+        print("Button pressed")
 
 class ButtonPressedScreen(Screen):
     video_buttonpressed = ObjectProperty()
