@@ -5,6 +5,7 @@ import time
 class ButtonControllerDummy(Thread):
     def __init__(self, controller):
         super(ButtonControllerDummy, self).__init__()
+        self.daemon = True
 
         self.controller = controller
 

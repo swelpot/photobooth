@@ -7,6 +7,8 @@ from kivy.logger import Logger
 class SegmentDisplayController(Thread):
     def __init__(self, controller, from_number):
         super(SegmentDisplayController, self).__init__()
+        self.daemon = True
+
         self.controller = controller
         self.from_number = from_number
 

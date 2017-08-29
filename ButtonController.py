@@ -8,9 +8,10 @@ gpioPin = 18
 class ButtonController(Thread):
     def __init__(self, controller):
         super(ButtonController, self).__init__()
+        self.daemon = True
 
         self.controller = controller
-        
+
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(gpioPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
