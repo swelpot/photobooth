@@ -11,7 +11,6 @@ class ImageResize():
     def resize(self, file):
         Logger.debug("ImageResize.resize() with {0}".format(file))
 
-        #withoutSuffix = file.split(".")[0]
         target = self.path + ntpath.basename(file)
 
         with Image(filename = file) as img:
