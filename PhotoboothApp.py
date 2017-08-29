@@ -1,6 +1,6 @@
 from kivy.core.window import Window
 
-from Controller import Controller
+#from Controller import Controller
 from ControllerDummy import ControllerDummy
 from LoggerPatch import LoggerPatch
 
@@ -183,6 +183,9 @@ if __name__ == '__main__':
     Config.set("kivy", "log_level", "debug")
     logging.root = Logger
 
+    # Config.set('graphics', 'width', '1280')
+    # Config.set('graphics', 'height', '800')
+
     # construct the argument parser and parse the arguments
     ap = argparse.ArgumentParser()
     ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
@@ -201,9 +204,10 @@ if __name__ == '__main__':
     presentation = Builder.load_file("PhotoboothApp.kv")
     # Window.fullscreen = 'auto'
     mainApp = MainApp()
+    #Window.size = (1280, 800)
 
-    controller = Controller(mainApp, conf)
-    #controller = ControllerDummy(mainApp, conf)
+    #controller = Controller(mainApp, conf)
+    controller = ControllerDummy(mainApp, conf)
     controller.start()
 
     mainApp.run()
