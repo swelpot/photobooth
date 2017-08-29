@@ -45,3 +45,4 @@ class MyController():
 if __name__ == '__main__':
     buttonController = ButtonController(MyController())
     buttonController.start()
+    time.sleep(60)
