@@ -20,7 +20,8 @@
     FloatLayout:
         Button:
             text: "Kivy"
-            pos_hint: {"x": 0, 'y':0}    
+            pos_hint: {"x": 0, 'y':0}
+	    on_press: button_pressed()
         Video:
             id: videotag
             source: 'dummies/dummy.mp4'
