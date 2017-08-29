@@ -1,3 +1,7 @@
+from kivy.core.window import Window
+
+from Controller import Controller
+from ControllerDummy import ControllerDummy
 from LoggerPatch import LoggerPatch
 
 import argparse
@@ -6,11 +10,9 @@ import json
 import pprint
 import logging
 import kivy
-import time
 
 kivy.require('1.10.0')
 
-from Controller import Controller
 from kivy.config import Config
 from kivy.logger import Logger
 from kivy.app import App
@@ -23,8 +25,22 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 class LoopVideoScreen(Screen):
     video_loop = ObjectProperty()
 
-    def __init__(self):
+    def __init__(self, conf):
         super(LoopVideoScreen, self).__init__()
+        self.conf = conf
+
+        #self.display_width = self.conf.get("display.width")
+        #self.display_height = self.conf.get("display.height")
+        self.display_width = Window.size[0]
+        self.display_height = Window.size[1]
+
+        self.admin_key_tol_x = self.display_width * 0.1
+        self.admin_key_tol_y = self.display_height * 0.1
+        self.admin_key_started1 = False
+        self.admin_key_started2 = False
+        self.admin_key_started3 = False
+
+        Logger.debug("Admin-Key Tolerance {0}/{1}".format(self.admin_key_tol_x, self.admin_key_tol_y))
 
     def init_video(self, video_files):
         Logger.debug("LoopVideoScreen.init_video()")
@@ -44,15 +60,37 @@ class LoopVideoScreen(Screen):
         Logger.debug("LoopVideoScreen.play()")
         self.video_loop.position = 0
         self.video_loop.state = 'play'
-        
+
+    # Admin-Key control
     def on_touch_down(self, touch):
-        print(touch)
+        self.admin_key_started1 = False
+        self.admin_key_started2 = False
+        self.admin_key_started3 = False
+
+        Logger.debug("DOWN: x: {0}, y: {1}".format(touch.px, touch.py))
+        if touch.px < self.admin_key_tol_x and touch.py < self.admin_key_tol_y:
+            self.admin_key_started1 = True
+            Logger.debug("Admin-Key1 started")
+
     def on_touch_move(self, touch):
-        print(touch)
+        if self.admin_key_started1 \
+                and not self.admin_key_started2 \
+                and touch.px > (self.display_width - self.admin_key_tol_x) \
+                and touch.py > (self.display_height - self.admin_key_tol_y):
+            self.admin_key_started2 = True
+            Logger.debug("Admin-Key2 started")
+
+        if self.admin_key_started2 \
+                and not self.admin_key_started3 \
+                and touch.px > (self.display_width - self.admin_key_tol_x) \
+                and touch.py < self.admin_key_tol_y:
+            self.admin_key_started3 = True
+            Logger.debug("Admin-Key3 started")
+
     def on_touch_up(self, touch):
-        print("RELEASED!",touch)
-    def button_pressed(self):
-        print("Button pressed")
+        Logger.debug("UP: x: {0}, y: {1}".format(touch.px, touch.py))
+        if self.admin_key_started3 and touch.px < self.admin_key_tol_x and touch.py > (self.display_height - self.admin_key_tol_y):
+            print "ADMIN"
 
 class ButtonPressedScreen(Screen):
     video_buttonpressed = ObjectProperty()
@@ -81,7 +119,7 @@ class ScreenManagement(ScreenManager):
 class MainApp(App):
     def __init__(self, **kwargs):
         super(MainApp, self).__init__(**kwargs)
-        self.scr_loop_video = LoopVideoScreen()
+        self.scr_loop_video = LoopVideoScreen(conf)
         self.scr_button_pressed = ButtonPressedScreen()
         self.scr_image = ShowImageScreen()
 
@@ -165,6 +203,7 @@ if __name__ == '__main__':
     mainApp = MainApp()
 
     controller = Controller(mainApp, conf)
+    #controller = ControllerDummy(mainApp, conf)
     controller.start()
 
     mainApp.run()
