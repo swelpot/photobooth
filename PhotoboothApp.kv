@@ -1,5 +1,10 @@
 #:import FallOutTransition kivy.uix.screenmanager.FallOutTransition
 
+<Button>:
+    font_size: 40
+	color: 0,1,0,1
+	size_hint: 0.3, 0.2 
+
 <ShowImageScreen>:
     name: 'show_image'
     image_path: imagetag
@@ -12,13 +17,17 @@
     name: 'loop_video'
     video_loop: videotag
 
-    Video:
-        id: videotag
-        source: 'dummies/dummy.mp4'
-        #fullscreen: True
-        allow_fullscreen: True
-        state: 'play'
-        options: {'eos': 'loop', 'fullscreen': True, 'allow_stretch': True}
+    FloatLayout:
+        Button:
+            text: "Kivy"
+            pos_hint: {"x": 0, 'y':0}    
+        Video:
+            id: videotag
+            source: 'dummies/dummy.mp4'
+            #fullscreen: True
+            allow_fullscreen: True
+            state: 'play'
+            options: {'eos': 'loop', 'fullscreen': True, 'allow_stretch': True}
 
 <ButtonPressedScreen>:
     name: 'button_pressed'
