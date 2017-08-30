@@ -1,15 +1,13 @@
+import argparse
+import json
+import logging
+import pprint
+import warnings
+
+import kivy
 from kivy.core.window import Window
 
-#from Controller import Controller
-from ControllerDummy import ControllerDummy
-from LoggerPatch import LoggerPatch
-
-import argparse
-import warnings
-import json
-import pprint
-import logging
-import kivy
+from controller.ControllerDummy import ControllerDummy
 
 kivy.require('1.10.0')
 
@@ -19,7 +17,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.clock import Clock
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 
 
 class LoopVideoScreen(Screen):
@@ -134,7 +132,7 @@ class MainApp(App):
 
         self.init_video()
 
-        self.sm = ScreenManagement()
+        self.sm = ScreenManagement(transition=CardTransition())
         #self.sm.add_widget(self.scr_start)
         self.sm.add_widget(self.scr_loop_video)
         self.sm.add_widget(self.scr_button_pressed)
@@ -183,8 +181,9 @@ if __name__ == '__main__':
     Config.set("kivy", "log_level", "debug")
     logging.root = Logger
 
-    # Config.set('graphics', 'width', '1280')
-    # Config.set('graphics', 'height', '800')
+    #Config.set('graphics', 'resizable', 0)
+    #Config.set('graphics', 'width', '1280')
+    #Config.set('graphics', 'height', '800')
 
     # construct the argument parser and parse the arguments
     ap = argparse.ArgumentParser()
@@ -201,7 +200,7 @@ if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
     Logger.info("Loaded Json config\n{}".format(pp.pformat(conf)))
 
-    presentation = Builder.load_file("PhotoboothApp.kv")
+    presentation = Builder.load_file("Photobooth.kv")
     # Window.fullscreen = 'auto'
     mainApp = MainApp()
     #Window.size = (1280, 800)

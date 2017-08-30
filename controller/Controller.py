@@ -1,11 +1,13 @@
+import time
+
 from kivy.core.window import Window
 from kivy.logger import Logger
-import time
+
 from ButtonController import ButtonController
 from CameraController import CameraController
-from CollageCreator import CollageCreator
-from ImageResize import ImageResize
 from SegmentDisplayController import SegmentDisplayController
+from util.CollageCreator import CollageCreator
+from util.ImageResize import ImageResize
 
 
 class Controller():

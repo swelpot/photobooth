@@ -5,9 +5,9 @@ from kivy.core.window import Window
 
 from ButtonControllerDummy import ButtonControllerDummy
 from CameraControllerDummy import CameraControllerDummy
-from CollageCreator import CollageCreator
-from ImageResize import ImageResize
 from SegmentDisplayController import SegmentDisplayController
+from util.CollageCreator import CollageCreator
+from util.ImageResize import ImageResize
 
 
 class ControllerDummy():
