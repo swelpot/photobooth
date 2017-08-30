@@ -1,3 +1,16 @@
+<Separator@Widget>
+    size_hint_y: None
+    thickness: 2
+    margin: 2
+    height: self.thickness + 2 * self.margin
+    color: 1., .0, .0
+    canvas:
+        Color:
+            rgb: self.color
+        Rectangle:
+            pos: self.x + self.margin, self.y + self.margin + 1
+            size: self.width - 2 * self.margin , self.thickness
+            
 <AdminScreen>:
     name: 'admin'
     
@@ -23,6 +36,8 @@
                 text: 'Shutdown'
             Button:
                 text: 'Reboot'
+            Separator:
+                color: .0, 1., .0
             Label:
                 text: 'IP xxx.xxx.xxx.xxx'
             Label:
