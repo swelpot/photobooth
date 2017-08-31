@@ -10,49 +10,89 @@
         Rectangle:
             pos: self.x + self.margin, self.y + self.margin + 1
             size: self.width - 2 * self.margin , self.thickness
-            
+
+<ButtonBottom@Button>
+    size_x: 200
+    size_hint_y: 1
+
+<ButtonRight@Button>
+    size_hint_x: 1
+    size_y: 20
+
+<LabelRight@Label>
+    size_hint_x: 1
+    size_hint_y: .1
+    text_size: self.size
+    halign: 'left'
+
 <AdminScreen>:
     name: 'admin'
-    
+    attr_ip: 'xxx.xxx.xxx.xxx'
+    attr_imgtarget: '/home/sysop/photos'
+    attr_camera_status: 'ready'
+
     AnchorLayout:
-        anchor_y: bottom
-        
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size_hint_x: 1
+        size_hint_y: 1
+
+        Button:
+            text: 'Log'
+            size_hint_x: .8
+            size_hint_y: .8
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size_hint_x: 1
+        size_hint_y: 1
+
         BoxLayout:
             spacing: 10
-            
-            Button:
+            size_hint_y: 0.2
+
+
+            ButtonBottom:
                 text: 'Gästebuch-Modus'
-            Button:
+                size_hint_x: .3
+                size_hint_y: 1
+            ButtonBottom:
                 text: 'Party-Modus'
-    
+                size_hint_x: .3
+                size_hint_y: 1
+
     AnchorLayout:
-        anchor_x: right
-        
+        anchor_x: 'right'
+        anchor_y: 'top'
+        size_hint_x: 1
+        size_hint_y: 1
+
         BoxLayout:
-            orientation: vertical
+            orientation: 'vertical'
             spacing: 10
-            
-            Button:
+            size_hint_x: 0.2
+            size_hint_y: 0.8
+
+            ButtonRight:
                 text: 'Shutdown'
-            Button:
+            ButtonRight:
                 text: 'Reboot'
-            Separator:
-                color: .0, 1., .0
-            Label:
-                text: 'IP xxx.xxx.xxx.xxx'
-            Label:
-                text: 'ESSID abcdef'
-            Label:
-                text: 'IMG-Target: /home/sysop/photos'
-            Label:
+#            Separator:
+#                color: .0, 1., .0
+            LabelRight:
+                text: 'IP ' + root.attr_ip
+            LabelRight:
+                text: 'IMG-Target: ' + root.attr_imgtarget
+            LabelRight:
                 text: 'IMG-Target: 30% full'
-            Label:
-                text: 'Camera: ready'
-            Label:
+            LabelRight:
+                text: 'Camera: ' + root.attr_camera_status
+            LabelRight:
                 text: 'SD-Card: 60% full'
-            Label:
+            LabelRight:
                 text: 'Required Camera Settings'
-            Label:
+            LabelRight:
                 text: 'Manual Focus'
-            Label:
+            LabelRight:
                 text: 'Program M'

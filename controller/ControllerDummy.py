@@ -25,7 +25,7 @@ class ControllerDummy():
                                    Window.size[1])
 
         self.camera.initCamera()
-        self.button.start()
+        #self.button.start()
 
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
