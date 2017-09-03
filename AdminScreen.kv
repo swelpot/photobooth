@@ -17,7 +17,7 @@
 
 <ButtonRight@Button>
     size_hint_x: 1
-    size_y: 20
+    size_hint_y: 0.1
 
 <LabelRight@Label>
     size_hint_x: 1
@@ -27,20 +27,36 @@
 
 <AdminScreen>:
     name: 'admin'
+    attr_text_log: ''
     attr_ip: 'xxx.xxx.xxx.xxx'
     attr_imgtarget: '/home/sysop/photos'
     attr_camera_status: 'ready'
+    obj_scroll_view: id_scroll_view
 
     AnchorLayout:
         anchor_x: 'left'
         anchor_y: 'top'
         size_hint_x: 1
         size_hint_y: 1
+        spacing: 20
+        padding: 20
 
-        Button:
-            text: 'Log'
+        ScrollView:
+            id: id_scroll_view
             size_hint_x: .8
             size_hint_y: .8
+
+            Label:
+                text: root.attr_text_log
+                font_size: 15
+                halign: 'left'
+                valign: 'top'
+                #size_x: 1
+                #size_y: 1
+
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
 
     AnchorLayout:
         anchor_x: 'center'
@@ -49,18 +65,19 @@
         size_hint_y: 1
 
         BoxLayout:
-            spacing: 10
+            spacing: 20
+            padding: 20
             size_hint_y: 0.2
 
 
             ButtonBottom:
                 text: 'Gästebuch-Modus'
-                size_hint_x: .3
                 size_hint_y: 1
+                on_press: root.switch_mode('guestbook')
             ButtonBottom:
                 text: 'Party-Modus'
-                size_hint_x: .3
                 size_hint_y: 1
+                on_press: root.switch_mode("party")
 
     AnchorLayout:
         anchor_x: 'right'
@@ -70,16 +87,19 @@
 
         BoxLayout:
             orientation: 'vertical'
-            spacing: 10
+            spacing: 20
+            padding: 20
             size_hint_x: 0.2
             size_hint_y: 0.8
 
             ButtonRight:
                 text: 'Shutdown'
+                on_press: root.shutdown()
             ButtonRight:
                 text: 'Reboot'
-#            Separator:
-#                color: .0, 1., .0
+                on_press: root.reboot()
+            Separator:
+                color: .0, 1., .0
             LabelRight:
                 text: 'IP ' + root.attr_ip
             LabelRight:

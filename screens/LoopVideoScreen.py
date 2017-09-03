@@ -77,6 +77,6 @@ class LoopVideoScreen(Screen):
         if self.admin_key_started3 and touch.px < self.admin_key_tol_x and touch.py > (self.display_height - self.admin_key_tol_y):
             print "ADMIN"
 
-        # run shooting when screen pressed
+        # trigger camera when screen pressed
         if self.conf.get("app.touch_trigger") and not self.admin_key_started1:
             threading.Thread(target=self.controller.button_pressed).start()
