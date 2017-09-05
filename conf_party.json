@@ -1,0 +1,7 @@
+{
+	"app.video_loop": "../loopvideo.mp4",
+	"app.video_buttonpressed": "../buttonpressed.mp4",
+	"app.show_image_duration": 2,
+
+	"segment_display.time_to_prepare": 10
+}

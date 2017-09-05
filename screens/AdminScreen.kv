@@ -43,12 +43,13 @@
 
         ScrollView:
             id: id_scroll_view
-            size_hint_x: .8
+            size_hint_x: .7
             size_hint_y: .8
+            scroll_y: 0
 
             Label:
                 text: root.attr_text_log
-                font_size: 15
+                font_size: 18
                 halign: 'left'
                 valign: 'top'
                 #size_x: 1
@@ -89,7 +90,7 @@
             orientation: 'vertical'
             spacing: 20
             padding: 20
-            size_hint_x: 0.2
+            size_hint_x: 0.3
             size_hint_y: 0.8
 
             ButtonRight:
@@ -103,7 +104,7 @@
             LabelRight:
                 text: 'IP ' + root.attr_ip
             LabelRight:
-                text: 'IMG-Target: ' + root.attr_imgtarget
+                text: 'Target: ' + root.attr_imgtarget
             LabelRight:
                 text: 'IMG-Target: 30% full'
             LabelRight:

@@ -1,11 +1,12 @@
 {
-	"app.video_loop": "../loopvideo.mp4",
-	"app.video_buttonpressed": "../buttonpressed.mp4",
-	"app.touch_trigger": false,
-	"app.show_image_duration": 20,
-	"segment_display.time_to_prepare": 10,
+	"controller.mode_conf_guestbook": "conf_guestbook.json",
+	"controller.mode_conf_party": "conf_party.json",
+
+	"app.touch_trigger": true,
+
 	"photo.path_target": "../photos/",
 	"photo.path_originals": "org/",
 	"photo.path_resized": "resized/",
-	"photo.trigger_delay": 4
+
+	"camera.trigger_delay": 4
 }

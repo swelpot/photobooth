@@ -9,13 +9,10 @@ from kivy.logger import Logger
 class LoopVideoScreen(Screen):
     video_loop = ObjectProperty()
 
-    def __init__(self, conf, controller):
+    def __init__(self, controller):
         super(LoopVideoScreen, self).__init__()
-        self.conf = conf
         self.controller = controller
 
-        #self.display_width = self.conf.get("display.width")
-        #self.display_height = self.conf.get("display.height")
         self.display_width = Window.size[0]
         self.display_height = Window.size[1]
 
@@ -75,8 +72,9 @@ class LoopVideoScreen(Screen):
     def on_touch_up(self, touch):
         Logger.debug("Touch UP: x: {0}, y: {1}".format(touch.px, touch.py))
         if self.admin_key_started3 and touch.px < self.admin_key_tol_x and touch.py > (self.display_height - self.admin_key_tol_y):
-            print "ADMIN"
+            Logger.debug("Admin gesture recognized")
+            self.controller.show_admin_screen()
 
         # trigger camera when screen pressed
-        if self.conf.get("app.touch_trigger") and not self.admin_key_started1:
+        if self.controller.get_conf("app.touch_trigger") and not self.admin_key_started1:
             threading.Thread(target=self.controller.button_pressed).start()

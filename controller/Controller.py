@@ -1,3 +1,4 @@
+import argparse
 import time
 
 from kivy.core.window import Window
@@ -7,13 +8,16 @@ from ButtonController import ButtonController
 from CameraController import CameraController
 from SegmentDisplayController import SegmentDisplayController
 from util.CollageCreator import CollageCreator
+from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
 
 
 class Controller():
-    def __init__(self, app, conf):
+    conf = None
+
+    def __init__(self, app):
         self.app = app
-        self.conf = conf
+        self.init_conf()
 
     def start(self):
         self.button = ButtonController(self)
@@ -26,18 +30,35 @@ class Controller():
         self.camera.initCamera()
         self.button.start()
 
+    def init_conf(self):
+        # construct the argument parser and parse the arguments
+        ap = argparse.ArgumentParser()
+        ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
+        args = vars(ap.parse_args())
+
+        conf_file = args.get("conf")
+        self.conf = ConfUtil.load_json_conf(conf_file)
+
+    def prepare_conf(self, type):
+        conf_file_mode = self.conf.get("controller.mode_conf_{0}".format(type))
+        mode_conf = ConfUtil.load_json_conf(conf_file_mode)
+        self.conf.update(mode_conf)
+
+    def get_conf(self, key):
+        return self.conf.get(key)
+
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
         self.button.lights_off()
 
         # trigger switch to countdown screen
-        self.app.update_button_pressed()
+        self.app.show_button_pressed_screen_async()
 
-        self.seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
-        self.seg_display.start()
+        seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
+        seg_display.start()
 
         # wait for trigger delay
-        time.sleep(self.conf.get("photo.trigger_delay"))
+        time.sleep(self.conf.get("camera.trigger_delay"))
         # shoot photo
         photos = self.camera.shoot()
         #photos=['../IMG_5864.JPG']
@@ -46,8 +67,16 @@ class Controller():
         resized = self.resizer.resize(collage)
 
         # update gui image
-        self.app.update_image(resized)
+        self.app.show_image_screen_async(resized)
 
         self.button.lights_on()
 
+    # on return from operations by secret gesture
+    def show_admin_screen(self):
+        self.app.show_admin_screen()
 
+    # to operations by clicked mode
+    def switch_mode(self, type):
+        self.prepare_conf(type)
+        self.app.init_videos()
+        self.app.show_loop_screen()
