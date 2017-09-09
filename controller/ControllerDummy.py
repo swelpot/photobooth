@@ -59,7 +59,11 @@ class ControllerDummy():
         seg_display.start()
 
         # wait for trigger delay
-        time.sleep(self.conf.get("camera.trigger_delay"))
+        trigger_delay = self.conf.get("camera.trigger_delay")
+        time_to_prepare = self.conf.get("app.time_to_prepare")
+
+        time.sleep(time_to_prepare - trigger_delay)
+
         # shoot photo
         photos = self.camera.shoot()
         #photos=['../IMG_5864.JPG']
@@ -80,4 +84,5 @@ class ControllerDummy():
     def switch_mode(self, type):
         self.prepare_conf(type)
         self.app.init_videos()
+        self.app.init_background()
         self.app.show_loop_screen()

@@ -1,10 +1,10 @@
-import argparse
-import json
 import logging
-import pprint
-import warnings
 
 import kivy
+from kivy.graphics import Color
+from kivy.graphics import Rectangle
+from kivy.properties import ObjectProperty
+
 kivy.require('1.10.0')
 
 from util.LoggerPatch import LoggerPatch
@@ -23,7 +23,7 @@ from kivy.uix.screenmanager import ScreenManager, CardTransition
 
 
 class ScreenManagement(ScreenManager):
-    pass
+    obj_bg_color = ObjectProperty(Color(0, 1, 0, 1))
 
 
 class MainApp(App):
@@ -48,6 +48,13 @@ class MainApp(App):
         self.controller.start()
 
         self.sm = ScreenManagement(transition=CardTransition())
+
+        # set background like video and track changes in size/position
+        with self.sm.canvas.before:
+            Color(0, 0, 0)  # initial black
+            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
+        self.sm.bind(size=self._update_rect, pos=self._update_rect)
+
         self.scr_admin = AdminScreen(self.controller)
         self.scr_loop_video = LoopVideoScreen(self.controller)
         self.scr_button_pressed = ButtonPressedScreen()
@@ -65,9 +72,21 @@ class MainApp(App):
 
         return self.sm
 
+    def _update_rect(self, instance, value):
+        self.rect.pos = instance.pos
+        self.rect.size = instance.size
+
     def init_videos(self):
         self.scr_loop_video.init_video(self.controller.get_conf("app.video_loop"))
         self.scr_button_pressed.init_video(self.controller.get_conf("app.video_buttonpressed"))
+
+    def init_background(self):
+        with self.sm.canvas.before:
+            Color(
+                float(self.controller.get_conf("app.video_background_color_r"))/255.0,
+                float(self.controller.get_conf("app.video_background_color_g"))/255.0,
+                float(self.controller.get_conf("app.video_background_color_b"))/255.0)
+            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
 
     def _button_pressed(self, *args):
         if self.button_pressed:
@@ -105,6 +124,11 @@ class MainApp(App):
         self.image_updated = True
 
     def show_admin_screen(self):
+        # set background like video and track changes in size/position
+        with self.sm.canvas.before:
+            Color(0, 0, 0)  # initial black
+            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
+
         self.scr_admin.start_log_read()
         self.scr_admin.update()
         self.sm.current = 'admin'

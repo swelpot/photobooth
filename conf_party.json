@@ -1,6 +1,10 @@
 {
 	"app.video_loop": "../loopvideo.mp4",
 	"app.video_buttonpressed": "../buttonpressed.mp4",
+	"app.time_to_prepare": 11,
+	"app.video_background_color_r": 165,
+	"app.video_background_color_g": 155,
+	"app.video_background_color_b": 249,
 	"app.show_image_duration": 2,
 
 	"segment_display.time_to_prepare": 10

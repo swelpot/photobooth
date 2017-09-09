@@ -8,5 +8,5 @@
 	"photo.path_originals": "org/",
 	"photo.path_resized": "resized/",
 
-	"camera.trigger_delay": 4
+	"camera.trigger_delay": 0 //how long does the camera need to actually take the photo
 }
