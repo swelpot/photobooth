@@ -7,7 +7,7 @@ from kivy.logger import Logger
 from SegmentDisplayController import SegmentDisplayController
 from controller.ButtonControllerDummy import ButtonControllerDummy
 from controller.CameraControllerDummy import CameraControllerDummy
-from util.CollageCreator import CollageCreator
+from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
 
@@ -22,7 +22,7 @@ class ControllerDummy():
     def start(self):
         self.button = ButtonControllerDummy(self)
         self.camera = CameraControllerDummy()
-        self.creator = CollageCreator()
+        self.creator = Collage4Creator()
         #        self.resizer = ImageResizeDummy()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
@@ -68,7 +68,7 @@ class ControllerDummy():
         photos = self.camera.shoot()
         #photos=['../IMG_5864.JPG']
 
-        collage = self.creator.collage(photos)
+        collage = self.creator.collage_screen(photos)
         resized = self.resizer.resize(collage)
 
         # update gui image

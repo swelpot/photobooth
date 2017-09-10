@@ -15,9 +15,9 @@ class CameraController4(CameraController):
 
 
     def shoot(self):
-        Logger.debug("CameraController.shoot()")
-        image1 = self.capture_image()
-        image2 = self.capture_image()
-        image3 = self.capture_image()
-        image4 = self.capture_image()
+        Logger.debug("CameraController4.shoot()")
+        image1 = self._capture_image()
+        image2 = self._capture_image()
+        image3 = self._capture_image()
+        image4 = self._capture_image()
         return [image1, image2, image3, image4]

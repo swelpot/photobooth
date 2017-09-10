@@ -25,7 +25,7 @@ class CameraController():
         error, self.camera = gp.gp_camera_new()
         error = gp.gp_camera_init(self.camera, self.context)
 
-        self.set_capture_target()
+        self._set_capture_target()
 
         if error >= gp.GP_OK:
             # operation completed successfully so exit loop
@@ -34,7 +34,7 @@ class CameraController():
             # some other error we can't handle here
             raise gp.GPhoto2Error(error)
 
-    def set_capture_target(self):
+    def _set_capture_target(self):
         value = 1
 
         # get configuration tree
@@ -59,10 +59,10 @@ class CameraController():
 
     def shoot(self):
         Logger.debug("CameraController.shoot()")
-        image1 = self.capture_image()
+        image1 = self._capture_image()
         return [image1]
 
-    def capture_image(self):
+    def _capture_image(self):
         # img = subprocess.check_output(['gphoto2', '--capture-image-and-download'])
         # Logger.info('Image: {0}'.format(img))
         # return img

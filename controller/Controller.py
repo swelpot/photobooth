@@ -7,7 +7,7 @@ from kivy.logger import Logger
 from ButtonController import ButtonController
 from CameraController import CameraController
 from SegmentDisplayController import SegmentDisplayController
-from util.CollageCreator import CollageCreator
+from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
 
@@ -22,7 +22,7 @@ class Controller():
     def start(self):
         self.button = ButtonController(self)
         self.camera = CameraController(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
-        self.creator = CollageCreator()
+        self.creator = Collage4Creator(self.conf.get("photo.path_target") + self.conf.get("photo.path_collage"), self.conf.get("photo.img_nb_regex"))
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
                                    Window.size[1])
@@ -66,7 +66,7 @@ class Controller():
         photos = self.camera.shoot()
         #photos=['../IMG_5864.JPG']
 
-        collage = self.creator.collage(photos)
+        collage = self.creator.collage_screen(photos)
         resized = self.resizer.resize(collage)
 
         # update gui image
