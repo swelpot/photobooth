@@ -8,11 +8,12 @@ from kivy.logger import Logger
 
 
 class OSCommand(object):
-    def __init__(self):
-        pass
+    def __init__(self, templatename):
+        self.templatename = templatename
+        self.template = self._load_template(templatename)
 
-    def execute(self, templatename, **kwargs):
-        cmd = self._load_template(templatename)
+    def execute(self, **kwargs):
+        cmd = self.template
         cmd = self.replace_keywords(cmd, kwargs)
         cmd_args = cmd.split(' ')
 

@@ -33,7 +33,7 @@ class Controller():
     def init_conf(self):
         # construct the argument parser and parse the arguments
         ap = argparse.ArgumentParser()
-        ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
+        ap.add_argument("-cf", "--conffile", default="conf.json", dest="conf", help="path to the JSON configuration file")
         args = vars(ap.parse_args())
 
         conf_file = args.get("conf")

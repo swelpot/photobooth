@@ -8,6 +8,7 @@
 	"app.show_image_duration": 20,
 
 	"collage.cmd_template_screen": "montage_2x2",
+	"collage.cmd_template_print": "montage_2x4",
 
 	"segment_display.time_to_prepare": 10
 }

@@ -1,6 +1,7 @@
 import logging
 import ntpath
 import re
+from threading import Thread
 
 from kivy import Config
 from kivy.logger import Logger
@@ -15,35 +16,35 @@ class Collage4Creator():
         self.conf = conf
 
     def collage_print_async(self, photos):
-        pass
+        Logger.debug("CollageCreator.collage_print_async() with {0}".format(photos))
+
+        worker = self._get_worker(photos, 'print')
+        worker.start()
+
+        return worker.filepath
 
     # create collage for screen display
     def collage_screen(self, photos):
         Logger.debug("CollageCreator.collage_screen() with {0}".format(photos))
 
-        filename1 = photos[0]
-        filename2 = photos[1]
-        filename3 = photos[2]
-        filename4 = photos[3]
+        worker = self._get_worker(photos, 'screen')
+        worker.run()
 
-        collage_filename = self._get_collage_filename(photos)
+        return worker.filepath
+
+    def _get_worker(self, photos, template_type):
+        collage_filename = self._get_collage_filename(photos, template_type)
         collage_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_collage")
-
         filepath = collage_path + collage_filename
 
-        cmd_template = self.conf.get("collage.cmd_template_screen")
+        imagemagick_path = self.conf.get('app.imagemagick_path')
+        cmd_template = self.conf.get("collage.cmd_template_" + template_type)
 
-        os_cmd = ImageMagickOSCommand(self.conf.get('app.imagemagick_path'))
-        os_cmd.execute(cmd_template, result = filepath,
-                       photo1 = filename1,
-                       photo2 = filename2,
-                       photo3 = filename3,
-                       photo4 = filename4)
+        os_cmd = ImageMagickOSCommand(cmd_template, imagemagick_path)
 
+        worker = WorkerThread(os_cmd, filepath, photos)
 
-
-        Logger.info('Created collage {0}'.format(collage_filename))
-        return filepath
+        return worker
 
     def _get_img_nb(self, filename):
         regex = self.conf.get("photo.img_nb_regex")
@@ -58,16 +59,38 @@ class Collage4Creator():
 
         return img_nb
 
-    def _get_collage_filename(self, photos):
+    def _get_collage_filename(self, photos, template_type):
         collage_filename = 'IMG'
 
         for filename in photos:
             img_nb = self._get_img_nb(filename)
             collage_filename = '{0}_{1}'.format(collage_filename, img_nb)
 
-        collage_filename = '{0}.JPG'.format(collage_filename)
+        collage_filename = '{0}_{1}.JPG'.format(collage_filename, template_type)
 
         return collage_filename
+
+class WorkerThread(Thread):
+    def __init__(self, cmd, filepath, photos):
+        super(WorkerThread, self).__init__()
+
+        self.cmd = cmd
+        self.filepath = filepath
+        self.photos = photos
+
+    def run(self):
+        filename1 = self.photos[0]
+        filename2 = self.photos[1]
+        filename3 = self.photos[2]
+        filename4 = self.photos[3]
+
+        self.cmd.execute(result = self.filepath,
+                       photo1 = filename1,
+                       photo2 = filename2,
+                       photo3 = filename3,
+                       photo4 = filename4)
+
+        Logger.info('Created collage {0}'.format(self.filepath))
 
 
 if __name__ == '__main__':
@@ -77,7 +100,7 @@ if __name__ == '__main__':
     conf = {'photo.path_target': '/Users/stefan/Downloads/',
             'photo.path_collage': 'montage/',
             'photo.img_nb_regex': 'IMG_(\d\d\d\d).JPG',
-            "collage.cmd_template_screen": "montage_2x2",
+            "collage.cmd_template_screen": "montage_2x4",
             "app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"}
 
     creator = Collage4Creator()

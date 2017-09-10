@@ -2,8 +2,8 @@ from util.OSCommand import OSCommand
 
 
 class ImageMagickOSCommand(OSCommand):
-    def __init__(self, imagemagick_path):
-        super(ImageMagickOSCommand, self).__init__()
+    def __init__(self, cmd_templatename, imagemagick_path):
+        super(ImageMagickOSCommand, self).__init__(cmd_templatename)
 
         self.imagemagick_path = imagemagick_path
 
