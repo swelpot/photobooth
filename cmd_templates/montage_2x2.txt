@@ -1,0 +1,10 @@
+/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/montage
+    {photo1} {photo2} {photo3} {photo4}
+    -auto-orient
+    -thumbnail 640x398
+    -bordercolor red
+    -border 0
+    -background white
+    -geometry +1+1
+    -tile 2x2
+    {result}

@@ -1,7 +1,13 @@
-
 <ShowImageScreen>:
     name: 'show_image'
     image_path: imagetag
+
+    canvas.before:
+        Color:
+            rgb: 1, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     AsyncImage:
         id: imagetag

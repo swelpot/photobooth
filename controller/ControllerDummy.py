@@ -6,6 +6,7 @@ from kivy.logger import Logger
 
 from SegmentDisplayController import SegmentDisplayController
 from controller.ButtonControllerDummy import ButtonControllerDummy
+from controller.CameraController4Dummy import CameraController4Dummy
 from controller.CameraControllerDummy import CameraControllerDummy
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
@@ -21,7 +22,7 @@ class ControllerDummy():
 
     def start(self):
         self.button = ButtonControllerDummy(self)
-        self.camera = CameraControllerDummy()
+        self.camera = CameraController4Dummy()
         self.creator = Collage4Creator()
         #        self.resizer = ImageResizeDummy()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
@@ -44,6 +45,9 @@ class ControllerDummy():
         conf_file_mode = self.conf.get("controller.mode_conf_{0}".format(type))
         mode_conf = ConfUtil.load_json_conf(conf_file_mode)
         self.conf.update(mode_conf)
+
+        # update conf in workers
+        self.creator.set_conf(self.conf)
 
     def get_conf(self, key):
         return self.conf.get(key)

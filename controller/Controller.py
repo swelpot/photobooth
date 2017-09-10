@@ -22,7 +22,7 @@ class Controller():
     def start(self):
         self.button = ButtonController(self)
         self.camera = CameraController(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
-        self.creator = Collage4Creator(self.conf.get("photo.path_target") + self.conf.get("photo.path_collage"), self.conf.get("photo.img_nb_regex"))
+        self.creator = Collage4Creator()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
                                    Window.size[1])
@@ -43,6 +43,9 @@ class Controller():
         conf_file_mode = self.conf.get("controller.mode_conf_{0}".format(type))
         mode_conf = ConfUtil.load_json_conf(conf_file_mode)
         self.conf.update(mode_conf)
+
+        # update conf in workers
+        self.creator.set_conf(self.conf)
 
     def get_conf(self, key):
         return self.conf.get(key)

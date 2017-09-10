@@ -5,14 +5,18 @@ import re
 from kivy import Config
 from kivy.logger import Logger
 
+from util.OSCommand import OSCommand
+
+
 class Collage4Creator():
-    def __init__(self, path, regex):
-        self.path = path
-        self.regex = regex
+    conf = None
+
+    def set_conf(self, conf):
+        self.conf = conf
 
     # create collage for screen display
     def collage_screen(self, photos):
-        Logger.debug("CollageCreator.collage() with {0}".format(photos))
+        Logger.debug("CollageCreator.collage_screen() with {0}".format(photos))
 
         filename1 = photos[0]
         filename2 = photos[1]
@@ -20,13 +24,29 @@ class Collage4Creator():
         filename4 = photos[3]
 
         collage_filename = self._get_collage_filename(photos)
+        collage_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_collage")
+
+        filepath = collage_path + collage_filename
+
+        cmd_template = self.conf.get("collage.cmd_template_screen")
+
+        os_cmd = OSCommand()
+        os_cmd.execute(cmd_template, result = filepath,
+                       photo1 = filename1,
+                       photo2 = filename2,
+                       photo3 = filename3,
+                       photo4 = filename4)
+
+
 
         Logger.info('Created collage {0}'.format(collage_filename))
-        return collage_filename
+        return filepath
 
     def _get_img_nb(self, filename):
+        regex = self.conf.get("photo.img_nb_regex")
+
         img_nb = ntpath.basename(filename)
-        img_nb_search = re.search(self.regex, filename, re.IGNORECASE)
+        img_nb_search = re.search(regex, filename, re.IGNORECASE)
 
         if img_nb_search:
             img_nb = img_nb_search.group(1)
@@ -51,7 +71,13 @@ if __name__ == '__main__':
     Config.set("kivy", "log_level", "debug")
     logging.root = Logger
 
-    creator = Collage4Creator('/Users/stefan/Downloads/', 'IMG_(\d\d\d\d).JPG')
+    conf = {'photo.path_target': '/Users/stefan/Downloads/',
+            'photo.path_collage': 'montage/',
+            'photo.img_nb_regex': 'IMG_(\d\d\d\d).JPG',
+            "collage.cmd_template_screen": "montage_2x2"}
+
+    creator = Collage4Creator()
+    creator.set_conf(conf)
     creator.collage_screen(["/Users/stefan/Downloads/IMG_9369.JPG",
                      "/Users/stefan/Downloads/IMG_9417.JPG",
                      "/Users/stefan/Downloads/IMG_9715.JPG",

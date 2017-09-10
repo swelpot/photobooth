@@ -23,7 +23,7 @@ from kivy.uix.screenmanager import ScreenManager, CardTransition
 
 
 class ScreenManagement(ScreenManager):
-    obj_bg_color = ObjectProperty(Color(0, 1, 0, 1))
+    pass
 
 
 class MainApp(App):
@@ -48,6 +48,8 @@ class MainApp(App):
         self.controller.start()
 
         self.sm = ScreenManagement(transition=CardTransition())
+        self.sm.mode = 'pop' # 'push'
+        self.sm.direction = 'left'
 
         # set background like video and track changes in size/position
         with self.sm.canvas.before:

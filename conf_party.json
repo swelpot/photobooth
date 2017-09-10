@@ -7,5 +7,7 @@
 	"app.video_background_color_b": 249,
 	"app.show_image_duration": 2,
 
+	"collage.cmd_template_screen": "montage_2x2",
+
 	"segment_display.time_to_prepare": 10
 }
