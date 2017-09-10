@@ -70,10 +70,10 @@ class Controller():
         #photos=['../IMG_5864.JPG']
 
         collage = self.creator.collage_screen(photos)
-        resized = self.resizer.resize(collage)
+        #resized = self.resizer.resize(collage)
 
         # update gui image
-        self.app.show_image_screen_async(resized)
+        self.app.show_image_screen_async(collage)
 
         self.button.lights_on()
 

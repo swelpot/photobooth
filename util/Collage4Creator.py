@@ -5,7 +5,7 @@ import re
 from kivy import Config
 from kivy.logger import Logger
 
-from util.OSCommand import OSCommand
+from util.ImageMagickOSCommand import ImageMagickOSCommand
 
 
 class Collage4Creator():
@@ -13,6 +13,9 @@ class Collage4Creator():
 
     def set_conf(self, conf):
         self.conf = conf
+
+    def collage_print_async(self, photos):
+        pass
 
     # create collage for screen display
     def collage_screen(self, photos):
@@ -30,7 +33,7 @@ class Collage4Creator():
 
         cmd_template = self.conf.get("collage.cmd_template_screen")
 
-        os_cmd = OSCommand()
+        os_cmd = ImageMagickOSCommand(self.conf.get('app.imagemagick_path'))
         os_cmd.execute(cmd_template, result = filepath,
                        photo1 = filename1,
                        photo2 = filename2,
@@ -74,7 +77,8 @@ if __name__ == '__main__':
     conf = {'photo.path_target': '/Users/stefan/Downloads/',
             'photo.path_collage': 'montage/',
             'photo.img_nb_regex': 'IMG_(\d\d\d\d).JPG',
-            "collage.cmd_template_screen": "montage_2x2"}
+            "collage.cmd_template_screen": "montage_2x2",
+            "app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"}
 
     creator = Collage4Creator()
     creator.set_conf(conf)

@@ -7,13 +7,13 @@ from kivy import Config
 from kivy.logger import Logger
 
 
-class OSCommand():
+class OSCommand(object):
+    def __init__(self):
+        pass
+
     def execute(self, templatename, **kwargs):
-
-        filename_result = "/Users/stefan/Downloads/montage/pol2.jpg"
-
         cmd = self._load_template(templatename)
-        cmd = self._replace_keywords(cmd, kwargs)
+        cmd = self.replace_keywords(cmd, kwargs)
         cmd_args = cmd.split(' ')
 
         start = datetime.datetime.now()
@@ -21,8 +21,7 @@ class OSCommand():
         end = datetime.datetime.now()
 
         processing_time = end - start
-        Logger.debug('Executing command "{0}" took {1}.{2}s'.format(cmd, processing_time.seconds, processing_time.microseconds))
-        return filename_result
+        Logger.debug('Command "{0}" took {1}.{2}s'.format(cmd, processing_time.seconds, processing_time.microseconds))
 
     def _load_template(self, templatefile):
         filename = 'cmd_templates/{0}.txt'.format(templatefile)
@@ -37,15 +36,16 @@ class OSCommand():
 
         return template
 
-    def _replace_keywords(self, text, keywords):
+    def replace_keywords(self, text, keywords):
         for key, value in keywords.iteritems():
             text = self._replace_keyword(text, key, value)
 
         return text
 
     def _replace_keyword(self, text, key, value):
-        regex = '{{{0}}}'.format(key)
-        text = text.replace(regex, value)
+        placeholder = '{{{0}}}'.format(key)
+        while text.find(placeholder) >= 0:
+            text = text.replace(placeholder, value)
 
         return text
 

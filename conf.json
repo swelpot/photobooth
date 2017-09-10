@@ -2,13 +2,14 @@
 	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
 
-	"app.touch_trigger": true,
-
 	"photo.path_target": "../photos/",
 	"photo.path_originals": "org/",
 	"photo.path_collage": "collage/",
 	"photo.path_resized": "resized/",
 	"photo.img_nb_regex": "IMG_(\\d\\d\\d\\d).JPG",
 
-	"camera.trigger_delay": 0 //how long does the camera need to actually take the photo
+	"camera.trigger_delay": 0, //how long does the camera need to actually take the photo
+
+	"app.touch_trigger": true,
+	"app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"
 }

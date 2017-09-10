@@ -120,10 +120,11 @@ class MainApp(App):
     def show_button_pressed_screen_async(self):
         self.button_pressed = True
 
-    def show_image_screen_async(self, imagepath):
-        Logger.debug("MainApp.update_image() with {0}".format(imagepath))
-        self.image_path = imagepath
+    def show_image_screen_async(self, image_screen, image_print):
+        Logger.debug("MainApp.update_image() with {0}".format(image_screen))
+        self.image_path = image_screen
         self.image_updated = True
+        self.image_print = image_print
 
     def show_admin_screen(self):
         # set background like video and track changes in size/position
