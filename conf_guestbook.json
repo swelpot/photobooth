@@ -5,7 +5,8 @@
 	"app.video_background_color_r": 165,
 	"app.video_background_color_g": 155,
 	"app.video_background_color_b": 249,
-	"app.show_image_duration": 20,
+	"app.show_image_duration": 10,
+	"app.printing_enabled": true,
 
 	"collage.cmd_template_screen": "montage_2x2",
 	"collage.cmd_template_print": "montage_2x4",

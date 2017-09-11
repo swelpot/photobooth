@@ -40,6 +40,7 @@ class LoopVideoScreen(Screen):
 
     def play(self):
         Logger.debug("LoopVideoScreen.play()")
+        self.video_loop.state = 'stop'
         self.video_loop.position = 0
         self.video_loop.state = 'play'
 

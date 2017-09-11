@@ -17,4 +17,4 @@ class ButtonPressedScreen(Screen):
 
     def stop(self):
         Logger.debug("ButtonPressedScreen.stop()")
-        self.video_buttonpressed.state = 'pause'
+        self.video_buttonpressed.state = 'stop'

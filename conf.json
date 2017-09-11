@@ -1,5 +1,5 @@
 {
-	"controller.mode_conf_guestbook": "conf_guestbook2.json",
+	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
 
 	"photo.path_target": "../photos/",

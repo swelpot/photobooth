@@ -1,0 +1,77 @@
+<Separator@Widget>
+    size_hint_x: None
+    thickness: 2
+    margin: 0
+    width: self.thickness + 2 * self.margin
+    color: 0, 1, 0, 1
+    canvas:
+        Color:
+            rgb: self.color
+        Rectangle:
+            pos: self.x + self.margin + 1, self.y + self.margin
+            size: self.thickness, self.height - 2 * self.margin
+
+<ShowImageScreen>:
+    name: 'show_image'
+    image_path: imagetag
+    obj_lbl_print_copies: lbl_copies_tag
+    pos_x: 5000
+
+    canvas.before:
+        Color:
+            rgb: 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        AsyncImage:
+            id: imagetag
+            source: '../photos/collage/IMG_5864_5857_5864_5857_screen.JPG'
+
+        BoxLayout:
+            size_hint: 0.4, 0.1
+            spacing: 10
+            padding: 10
+
+
+            orientation: 'horizontal'
+            pos: (root.pos_x, 0)
+
+
+            canvas.before:
+                Color:
+                    rgb: root.r, root.g, root.b
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: '-'
+                background_color: 1, 0, 0, .5
+                size_hint_x: 0.3
+                on_press: lbl_copies_tag.text = str(int(lbl_copies_tag.text) - 1) if int(lbl_copies_tag.text) > 1 else '1'
+            Label:
+                id: lbl_copies_tag
+                text: '1'
+                background_color: 1, 0, 0, .5
+                size_hint_x: 0.5
+            Button:
+                text: '+'
+                background_color: 1, 0, 0, .5
+                size_hint_x: 0.3
+                on_press: lbl_copies_tag.text = str(int(lbl_copies_tag.text) + 1) if int(lbl_copies_tag.text) < 5 else '5'
+            Separator:
+                thickness: 10
+                margin: 0
+            Button:
+                text: 'Drucken'
+                background_color: 1, 0, 0, .5
+                on_press: root.print_image()
+            Separator:
+                thickness: 20
+                margin: 20
+            Button:
+                text: 'Abbrechen'
+                background_color: 1, 0, 0, .5
+                on_press: root.abort_print_dialog()

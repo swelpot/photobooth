@@ -81,9 +81,11 @@ class Controller():
     def show_admin_screen(self):
         self.app.show_admin_screen()
 
+    # after printing or on abort print dialog
+    def show_loop_screen(self):
+        self.app.show_loop_screen()
+
     # to operations by clicked mode
     def switch_mode(self, type):
         self.prepare_conf(type)
-        self.app.init_videos()
-        self.app.init_background()
-        self.app.show_loop_screen()
+        self.app.switch_mode()

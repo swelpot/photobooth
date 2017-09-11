@@ -60,7 +60,7 @@ class MainApp(App):
         self.scr_admin = AdminScreen(self.controller)
         self.scr_loop_video = LoopVideoScreen(self.controller)
         self.scr_button_pressed = ButtonPressedScreen()
-        self.scr_image = ShowImageScreen()
+        self.scr_image = ShowImageScreen(self.controller)
 
         Clock.schedule_interval(self._button_pressed, 0.1)
         Clock.schedule_interval(self._show_image, 0.5)
@@ -74,19 +74,23 @@ class MainApp(App):
 
         return self.sm
 
-    def _update_rect(self, instance, value):
-        self.rect.pos = instance.pos
-        self.rect.size = instance.size
-
-    def init_videos(self):
+    def _init_videos(self):
         self.scr_loop_video.init_video(self.controller.get_conf("app.video_loop"))
         self.scr_button_pressed.init_video(self.controller.get_conf("app.video_buttonpressed"))
 
-    def init_background(self):
+    def _init_background(self):
         self.sm.update_backgroup(
-            float(self.controller.get_conf("app.video_background_color_r"))/255.0,
+            float(self.controller.get_conf("app.video_background_color_r")) / 255.0,
             float(self.controller.get_conf("app.video_background_color_g")) / 255.0,
             float(self.controller.get_conf("app.video_background_color_b")) / 255.0)
+
+    # re-init when mode changed
+    def switch_mode(self):
+        self._init_videos()
+        self._init_background()
+
+        self.scr_image.switch_mode()
+        self.show_loop_screen()
 
     def _button_pressed(self, *args):
         if self.button_pressed:
@@ -107,7 +111,9 @@ class MainApp(App):
             self.sm.current = 'show_image'
 
             self.scr_button_pressed.stop()
-            Clock.schedule_once(self.show_loop_screen, self.controller.get_conf("app.show_image_duration"))
+            if not self.controller.get_conf("app.printing_enabled"):
+                # trigger screen change after x seconds only if printing disabled
+                Clock.schedule_once(self.show_loop_screen, self.controller.get_conf("app.show_image_duration"))
 
     def show_loop_screen(self, *args):
         Logger.debug("MainApp.show_loop_screen()")

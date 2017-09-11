@@ -16,7 +16,7 @@ class Collage4Creator():
         self.conf = conf
 
     def collage_print_async(self, photos):
-        Logger.debug("CollageCreator.collage_print_async() with {0}".format(photos))
+        Logger.debug("Collage4Creator.collage_print_async() with {0}".format(photos))
 
         worker = self._get_worker(photos, 'print')
         worker.start()
@@ -25,7 +25,7 @@ class Collage4Creator():
 
     # create collage for screen display
     def collage_screen(self, photos):
-        Logger.debug("CollageCreator.collage_screen() with {0}".format(photos))
+        Logger.debug("Collage4Creator.collage_screen() with {0}".format(photos))
 
         worker = self._get_worker(photos, 'screen')
         worker.run()
