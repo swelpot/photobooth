@@ -3,7 +3,7 @@ import logging
 import kivy
 from kivy.graphics import Color
 from kivy.graphics import Rectangle
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, NumericProperty
 
 kivy.require('1.10.0')
 
@@ -23,8 +23,14 @@ from kivy.uix.screenmanager import ScreenManager, CardTransition
 
 
 class ScreenManagement(ScreenManager):
-    pass
+    r = NumericProperty(0.0)
+    g = NumericProperty(0.0)
+    b = NumericProperty(0.0)
 
+    def update_backgroup(self, r, g, b):
+        self.r = r
+        self.g = g
+        self.b = b
 
 class MainApp(App):
     controller = None
@@ -50,12 +56,6 @@ class MainApp(App):
         self.sm = ScreenManagement(transition=CardTransition())
         self.sm.mode = 'pop' # 'push'
         self.sm.direction = 'left'
-
-        # set background like video and track changes in size/position
-        with self.sm.canvas.before:
-            Color(0, 0, 0)  # initial black
-            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
-        self.sm.bind(size=self._update_rect, pos=self._update_rect)
 
         self.scr_admin = AdminScreen(self.controller)
         self.scr_loop_video = LoopVideoScreen(self.controller)
@@ -83,12 +83,10 @@ class MainApp(App):
         self.scr_button_pressed.init_video(self.controller.get_conf("app.video_buttonpressed"))
 
     def init_background(self):
-        with self.sm.canvas.before:
-            Color(
-                float(self.controller.get_conf("app.video_background_color_r"))/255.0,
-                float(self.controller.get_conf("app.video_background_color_g"))/255.0,
-                float(self.controller.get_conf("app.video_background_color_b"))/255.0)
-            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
+        self.sm.update_backgroup(
+            float(self.controller.get_conf("app.video_background_color_r"))/255.0,
+            float(self.controller.get_conf("app.video_background_color_g")) / 255.0,
+            float(self.controller.get_conf("app.video_background_color_b")) / 255.0)
 
     def _button_pressed(self, *args):
         if self.button_pressed:
@@ -128,9 +126,7 @@ class MainApp(App):
 
     def show_admin_screen(self):
         # set background like video and track changes in size/position
-        with self.sm.canvas.before:
-            Color(0, 0, 0)  # initial black
-            self.rect = Rectangle(size=self.sm.size, pos=self.sm.pos)
+        self.sm.update_backgroup(0.0, 0.0, 0.0)
 
         self.scr_admin.start_log_read()
         self.scr_admin.update()

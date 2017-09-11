@@ -1,17 +1,10 @@
-<ShowImageScreen>:
-    name: 'show_image'
-    image_path: imagetag
-
+<ScreenManagement>:
     canvas.before:
         Color:
-            rgb: 0, 0, 0
+            rgb: self.r, self.g, self.b
         Rectangle:
             pos: self.pos
             size: self.size
-
-    AsyncImage:
-        id: imagetag
-        source: 'resources/empty.jpg'
 
 <LoopVideoScreen>:
     name: 'loop_video'
