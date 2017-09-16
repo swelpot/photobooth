@@ -73,6 +73,7 @@ class Collage4Creator():
 class WorkerThread(Thread):
     def __init__(self, cmd, filepath, photos):
         super(WorkerThread, self).__init__()
+        self.daemon = True
 
         self.cmd = cmd
         self.filepath = filepath

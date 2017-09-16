@@ -1,4 +1,9 @@
 {
+	"instagram.enabled": false,
+	"instagram.username": "colawedding",
+	"instagram.password": "s22a10C!",
+	"instagram.hashtag": "#colawedding",
+
 	"app.video_loop": "../guestbook_loop.mp4",
 	"app.video_buttonpressed": "../guestbook_countdown.mp4",
 	"app.time_to_prepare": 12, // seconds until the shoot screen in countdown video

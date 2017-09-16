@@ -10,6 +10,7 @@ from SegmentDisplayController import SegmentDisplayController
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
+#from util.InstagramUpload import InstagramUpload
 from util.PhotoStore import PhotoStore
 
 
@@ -86,7 +87,12 @@ class Controller():
             self.last_log_id = ps.add_log(self.conf.get("project_name"),
                                           self.collage_print,
                                           0)
-
+        # if self.conf.get("instagram.enabled"):
+        #     iu = InstagramUpload(self.conf.get("instagram.username"),
+        #                          self.conf.get("instagram.password"),
+        #                          self.collage_print,
+        #                          self.conf.get("instagram.hashtag"))
+        #     iu.start()
 
     def print_image(self, nb_copies):
         Logger.info('Printing {0} copies'.format(nb_copies))
