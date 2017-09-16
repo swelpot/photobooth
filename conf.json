@@ -1,4 +1,5 @@
 {
+	"project_name": "test",
 	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
 

@@ -31,6 +31,8 @@
     attr_ip: 'xxx.xxx.xxx.xxx'
     attr_imgtarget: '/home/sysop/photos'
     attr_camera_status: 'ready'
+    attr_photocnt: '0'
+    attr_printcnt: '0'
     obj_scroll_view: id_scroll_view
 
     AnchorLayout:
@@ -105,12 +107,21 @@
                 text: 'IP ' + root.attr_ip
             LabelRight:
                 text: 'Target: ' + root.attr_imgtarget
+            Separator:
+                color: .0, 1., .0
             LabelRight:
-                text: 'IMG-Target: 30% full'
+                text: '#Photos: ' + root.attr_photocnt
+            LabelRight:
+                text: '#Prints: ' + root.attr_printcnt
+            ButtonRight:
+                text: 'Reset #Prints'
+                on_press: root.reset_printcnt()
+            Separator:
+                color: .0, 1., .0
             LabelRight:
                 text: 'Camera: ' + root.attr_camera_status
-            LabelRight:
-                text: 'SD-Card: 60% full'
+            Separator:
+                color: .0, 1., .0
             LabelRight:
                 text: 'Required Camera Settings'
             LabelRight:

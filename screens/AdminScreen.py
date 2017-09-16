@@ -9,11 +9,16 @@ from kivy.logger import Logger
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty, Clock
 
+from util.PhotoStore import PhotoStore
+
+
 class AdminScreen(Screen):
     attr_ip = StringProperty()
     attr_imgtarget = StringProperty()
     attr_camera_status = StringProperty()
     attr_text_log = StringProperty()
+    attr_photocnt = StringProperty()
+    attr_printcnt = StringProperty()
     obj_scroll_view = ObjectProperty()
 
     new_log_store = Queue()
@@ -31,6 +36,10 @@ class AdminScreen(Screen):
     def update(self):
         self.attr_ip = NetworkUtil.getIp()
 
+        with PhotoStore() as ps:
+            self.attr_printcnt = str(ps.get_print_count(self.controller.conf.get("project_name")))
+            self.attr_photocnt = str(ps.get_photo_count(self.controller.conf.get("project_name")))
+
     def switch_mode(self, type):
         Logger.debug("Selected " + type)
         self.controller.switch_mode(type)
@@ -40,6 +49,11 @@ class AdminScreen(Screen):
 
     def reboot(self):
         os.system('sudo shutdown -r now')
+
+    def reset_printcnt(self):
+        with PhotoStore() as ps:
+            ps.reset_printcnt(self.controller.conf.get("project_name"))
+            self.attr_printcnt = '0'
 
     def _update_log(self, *args):
         message = ''
