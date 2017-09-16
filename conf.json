@@ -1,7 +1,13 @@
 {
 	"project_name": "test",
+
 	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
+
+	"pushover.user_key": "udx9eymet9d68egrfoymrnqdh519ou",
+	"pushover.api_token": "akbhx62gwpm99h58paqotq1vqg2ejm",
+	"pushover.message_title": "Photobooth",
+	"pushover.device": "iphonestefan",
 
 	"photo.path_target": "../photos/",
 	"photo.path_originals": "org/",
