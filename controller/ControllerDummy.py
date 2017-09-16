@@ -11,10 +11,13 @@ from controller.CameraControllerDummy import CameraControllerDummy
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
+from util.PhotoStore import PhotoStore
 
 
 class ControllerDummy():
     conf = None
+    collage_screen = None
+    collage_print = None
 
     def __init__(self, app):
         self.app = app
@@ -35,7 +38,7 @@ class ControllerDummy():
     def init_conf(self):
         # construct the argument parser and parse the arguments
         ap = argparse.ArgumentParser()
-        ap.add_argument("-c", "--conf", default="conf.json", dest="conf", help="path to the JSON configuration file")
+        ap.add_argument("-cf", "--conffile", default="conf.json", dest="conf", help="path to the JSON configuration file")
         args = vars(ap.parse_args())
 
         conf_file = args.get("conf")
@@ -70,16 +73,33 @@ class ControllerDummy():
 
         # shoot photo
         photos = self.camera.shoot()
-        #photos=['../IMG_5864.JPG']
 
-        collage_screen = self.creator.collage_screen(photos)
-        collage_print = self.creator.collage_print_async(photos)
+        self.collage_screen = self.creator.collage_screen(photos)
+        self.collage_print = self.creator.collage_print_async(photos)
         #resized = self.resizer.resize(collage)
 
         # update gui image
-        self.app.show_image_screen_async(collage_screen, collage_print)
+        self.app.show_image_screen_async(self.collage_screen)
 
         self.button.lights_on()
+
+        with PhotoStore() as ps:
+            self.last_log_id = ps.add_log(self.conf.get("project_name"),
+                                          self.collage_print,
+                                          0)
+
+
+    def print_image(self, nb_copies):
+        Logger.info('Printing {0} copies'.format(nb_copies))
+
+        # print (check if print image creation is finished!)
+        with PhotoStore() as ps:
+            ps.update_log(
+                self.last_log_id,
+                nb_copies
+            )
+
+        self.show_loop_screen()
 
     # on return from operations by secret gesture
     def show_admin_screen(self):

@@ -95,6 +95,19 @@ class PhotoStore():
 
         return row[0]
 
+    def update_log(self, log_id, prints):
+        """
+        Update photolog with number of prints
+        :return:
+        """
+        sql = """ UPDATE photolog SET prints = ? WHERE id = ? """
+
+        cur = self.connection.cursor()
+        cur.execute(sql, (prints, log_id))
+        self.connection.commit()
+        Logger.debug("updated photolog with id {0}, prints {1}".format(log_id, prints))
+
+
     def reset_printcnt(self, project):
         """
         Insert reset event into table resets

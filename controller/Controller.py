@@ -10,10 +10,14 @@ from SegmentDisplayController import SegmentDisplayController
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
+from util.PhotoStore import PhotoStore
 
 
 class Controller():
     conf = None
+    collage_screen = None
+    collage_print = None
+    last_log_id = None
 
     def __init__(self, app):
         self.app = app
@@ -65,17 +69,36 @@ class Controller():
         time_to_prepare = self.conf.get("app.time_to_prepare")
 
         time.sleep(time_to_prepare - trigger_delay)
+
         # shoot photo
         photos = self.camera.shoot()
-        #photos=['../IMG_5864.JPG']
 
-        collage = self.creator.collage_screen(photos)
+        self.collage_screen = self.creator.collage_screen(photos)
+        self.collage_print = self.creator.collage_print_async(photos)
         #resized = self.resizer.resize(collage)
 
         # update gui image
-        self.app.show_image_screen_async(collage)
+        self.app.show_image_screen_async(self.collage_screen)
 
         self.button.lights_on()
+
+        with PhotoStore() as ps:
+            self.last_log_id = ps.add_log(self.conf.get("project_name"),
+                                          self.collage_print,
+                                          0)
+
+
+    def print_image(self, nb_copies):
+        Logger.info('Printing {0} copies'.format(nb_copies))
+
+        # print (check if print image creation is finished!)
+        with PhotoStore() as ps:
+            ps.update_log(
+                self.last_log_id,
+                nb_copies
+            )
+
+        self.show_loop_screen()
 
     # on return from operations by secret gesture
     def show_admin_screen(self):

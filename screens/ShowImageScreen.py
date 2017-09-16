@@ -48,30 +48,12 @@ class ShowImageScreen(Screen):
     def print_image(self):
         """ called from kv file """
         nb_copies = int(self.obj_lbl_print_copies.text)
-        Logger.info('Printing {0} copies'.format(nb_copies))
+        self.controller.print_image(nb_copies)
 
-        # print (check if print image creation is finished!)
-        with PhotoStore() as ps:
-            ps.add_log(
-                self.controller.conf.get("project_name"),
-                self.obj_image.source,
-                nb_copies
-            )
-
-        self._return_to_loop_screen()
+        self._hide_print_dialog()
 
     def abort_print_dialog(self):
         """ called from kv file """
-        with PhotoStore() as ps:
-            ps.add_log(
-                self.controller.conf.get("project_name"),
-                self.obj_image.source,
-                0
-            )
-
-        self._return_to_loop_screen()
-
-    def _return_to_loop_screen(self):
         self.controller.show_loop_screen()
         self._hide_print_dialog()
 
