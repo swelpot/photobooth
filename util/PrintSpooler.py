@@ -25,7 +25,7 @@ class PrintSpooler():
 
     def print_image_async(self, cups_name, image_path, prints):
         task = (cups_name, image_path)
-        for a in xrange(1, prints):
+        for a in xrange(0, prints):
             self.print_thread.put(task)
 
 class PrintThread(Thread):
@@ -34,7 +34,7 @@ class PrintThread(Thread):
 
     def __init__(self):
         super(PrintThread, self).__init__()
-        #self.daemon = True
+        self.daemon = True
 
     def put(self, task):
         logging.debug("Adding task {0} for printer {1}".format(task[1], task[0]))
