@@ -1,7 +1,7 @@
 import netifaces as ni
 
 class NetworkUtil():
-    interface = 'en0'
+    interfaces = ('wlan0', 'eth0', 'en0')
 
     maxLength = {
         "interface": 16,
@@ -14,6 +14,14 @@ class NetworkUtil():
 
     @staticmethod
     def getIp():
-        ni.ifaddresses(NetworkUtil.interface)
-        ip = ni.ifaddresses(NetworkUtil.interface)[ni.AF_INET][0]['addr']
+        avail_interfaces = ni.interfaces()
+
+        for interface in NetworkUtil.interfaces:
+            if interface in avail_interfaces:
+                ip = ni.ifaddresses(interface)[ni.AF_INET][0]['addr']
+
+                if ip:
+                    break
+
+
         return ip
