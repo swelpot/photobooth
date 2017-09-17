@@ -3,6 +3,7 @@ from Queue import Queue
 
 from util.LogReader import LogReader
 from util.NetworkUtil import NetworkUtil
+from os.path import expanduser
 
 from kivy.uix.screenmanager import Screen
 from kivy.logger import Logger
@@ -28,7 +29,8 @@ class AdminScreen(Screen):
 
         self.controller = controller
 
-        self.log_read = LogReader('/Users/stefan/.kivy/logs', self)
+        home_dir = expanduser("~")
+        self.log_read = LogReader(home_dir + '/.kivy/logs', self)
         self.log_read.start()
 
         Clock.schedule_interval(self._update_log, .5)
