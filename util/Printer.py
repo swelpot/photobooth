@@ -1,8 +1,8 @@
 import cups
 from os import unlink
 
-import image
 import logging
+from PIL import Image
 from tempfile import mktemp
 from time import sleep
 
@@ -25,8 +25,8 @@ class Printer():
 #cups.setUser('tiger-222')
 
         # Image (code taken from boothcam.py)
-        im = image.new('RGBA', (683, 384))
-        im.paste(image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
+        im = Image.new('RGBA', (683, 384))
+        im.paste(Image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
 
         # Save data to a temporary file
         output = mktemp(prefix='jpg')
