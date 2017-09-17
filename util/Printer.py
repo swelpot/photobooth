@@ -21,21 +21,20 @@ class Printer():
         conn = cups.Connection()
 
         # Image (code taken from boothcam.py)
-        im = Image.new('RGBA', (683, 384))
-        im.paste(Image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
 #        im = Image.new('RGBA', (683, 384))
 #        im.paste(Image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
 
         # Save data to a temporary file
-        output = mktemp(prefix='jpg')
-        im.save(output, format='jpeg')
+#        output = mktemp(prefix='jpg')
+#        im.save(output, format='jpeg')
 
         # Send the picture to the printer
-        print_id = conn.printFile(cups_name, output, "Photobooth", {})
+#        print_id = conn.printFile(cups_name, output, "Photobooth", {})
+        print_id = conn.printFile(cups_name, image_path, "Photobooth", {})
         # Wait until the job finishes
         while conn.getJobs().get(print_id, None):
             sleep(1)
-        unlink(output)
+#        unlink(output)
 
 if __name__ == '__main__':
     Printer.print_image("../../IMG_8049.JPEG")
