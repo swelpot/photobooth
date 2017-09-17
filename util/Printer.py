@@ -19,8 +19,8 @@ class Printer():
     def print_image(image_path):
         # Set up CUPS
         conn = cups.Connection()
-        printers = conn.getPrinters()
-        printer_name = printers.keys()[0]
+        #printers = conn.getPrinters()
+        printer_name = "Canon_SELPHY_CP1300"
         logging.info("Printer: {0}".format(printer_name))
 #cups.setUser('tiger-222')
 
