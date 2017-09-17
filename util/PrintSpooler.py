@@ -1,3 +1,4 @@
+import logging
 from Queue import Queue
 from threading import Thread
 
@@ -36,6 +37,7 @@ class PrintThread(Thread):
         #self.daemon = True
 
     def put(self, task):
+        logging.debug("Adding task {0} for printer {1}".format(task[1], task[0]))
         self._tasks.put(task)
 
     def run(self):
@@ -44,9 +46,11 @@ class PrintThread(Thread):
                 time.sleep(self.sleep_time)
                 continue
 
+            logging.debug("Getting next task, queue size {0}".format(self._tasks.qsize()))
             task = self._tasks.get(False)
 
             if task:
+                logging.debug("Printing task {0} for printer {1}".format(task[1], task[0]))
                 Printer.print_image(task[0], task[1])
 
 if __name__ == '__main__':
