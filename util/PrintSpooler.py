@@ -3,7 +3,10 @@ from threading import Thread
 
 import time
 
-from util.Printer import Printer
+if __name__ == '__main__':
+    from Printer import Printer
+else:
+    from util.Printer import Printer
 
 
 class PrintSpooler():
