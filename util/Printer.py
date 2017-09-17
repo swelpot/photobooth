@@ -16,13 +16,9 @@ class Printer():
         return cups_name in printers
 
     @staticmethod
-    def print_image(image_path):
+    def print_image(cups_name, image_path):
         # Set up CUPS
         conn = cups.Connection()
-        #printers = conn.getPrinters()
-        printer_name = "Canon_SELPHY_CP1300"
-        logging.info("Printer: {0}".format(printer_name))
-#cups.setUser('tiger-222')
 
         # Image (code taken from boothcam.py)
         im = Image.new('RGBA', (683, 384))
@@ -33,7 +29,7 @@ class Printer():
         im.save(output, format='jpeg')
 
         # Send the picture to the printer
-        print_id = conn.printFile(printer_name, output, "Photo Booth", {})
+        print_id = conn.printFile(cups_name, output, "Photobooth", {})
         # Wait until the job finishes
         while conn.getJobs().get(print_id, None):
             sleep(1)

@@ -1,6 +1,7 @@
 import argparse
 import time
 
+import os
 from kivy.core.window import Window
 from kivy.logger import Logger
 
@@ -12,6 +13,7 @@ from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
 #from util.InstagramUpload import InstagramUpload
 from util.PhotoStore import PhotoStore
+from util.PrintSpooler import PrintSpooler
 
 
 class Controller():
@@ -97,14 +99,34 @@ class Controller():
     def print_image(self, nb_copies):
         Logger.info('Printing {0} copies'.format(nb_copies))
 
+        max_wait_time = 10 # seconds
+        sleep_time = 0.5
+
         # print (check if print image creation is finished!)
+        counter = 0
+        image_ready = os.path.isfile(self.collage_print)
+        while counter < (max_wait_time / sleep_time) and not image_ready:
+            time.sleep(sleep_time)
+            counter = counter + 1
+
+            image_ready = os.path.isfile(self.collage_print)
+
+        if image_ready:
+            # print
+            with PrintSpooler as ps:
+                ps.print_image_async(self.conf.get("printer.cups_name"), self.collage_print, nb_copies)
+        else:
+            Logger.error("Error while printing. Image {0} not ready after waiting {1}s.".format(self.collage_print, max_wait_time))
+
+
+        self.show_loop_screen()
+
+        # update photolog
         with PhotoStore() as ps:
             ps.update_log(
                 self.last_log_id,
                 nb_copies
             )
-
-        self.show_loop_screen()
 
     # on return from operations by secret gesture
     def show_admin_screen(self):
