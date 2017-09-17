@@ -11,12 +11,14 @@ from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty, Clock
 
 from util.PhotoStore import PhotoStore
+from util.Printer import Printer
 
 
 class AdminScreen(Screen):
     attr_ip = StringProperty()
     attr_imgtarget = StringProperty()
     attr_camera_status = StringProperty()
+    attr_printer_status = StringProperty()
     attr_text_log = StringProperty()
     attr_photocnt = StringProperty()
     attr_printcnt = StringProperty()
@@ -37,6 +39,8 @@ class AdminScreen(Screen):
 
     def update(self):
         self.attr_ip = NetworkUtil.getIp()
+
+        self.attr_printer_status = "Ready" if Printer.is_connected(self.controller.conf.get("printer.cups_name")) else "Missing"
 
         with PhotoStore() as ps:
             self.attr_printcnt = str(ps.get_print_count(self.controller.conf.get("project_name")))

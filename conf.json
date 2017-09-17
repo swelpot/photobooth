@@ -18,5 +18,7 @@
 	"camera.trigger_delay": 0, //how long does the camera need to actually take the photo
 
 	"app.touch_trigger": true,
-	"app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"
+	"app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/",
+
+	"printer.cups_name": "Canon_SELPHY_1300"
 }

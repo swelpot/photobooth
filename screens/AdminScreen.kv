@@ -30,7 +30,8 @@
     attr_text_log: ''
     attr_ip: 'xxx.xxx.xxx.xxx'
     attr_imgtarget: '/home/sysop/photos'
-    attr_camera_status: 'ready'
+    attr_camera_status: 'Missing'
+    attr_printer_status: 'Missing'
     attr_photocnt: '0'
     attr_printcnt: '0'
     obj_scroll_view: id_scroll_view
@@ -104,6 +105,12 @@
             Separator:
                 color: .0, 1., .0
             LabelRight:
+                text: 'Camera Status: ' + root.attr_camera_status
+            LabelRight:
+                text: 'Printer Status: ' + root.attr_printer_status
+            Separator:
+                color: .0, 1., .0
+            LabelRight:
                 text: 'IP ' + root.attr_ip
             LabelRight:
                 text: 'Target: ' + root.attr_imgtarget
@@ -116,10 +123,6 @@
             ButtonRight:
                 text: 'Reset #Prints'
                 on_press: root.reset_printcnt()
-            Separator:
-                color: .0, 1., .0
-            LabelRight:
-                text: 'Camera: ' + root.attr_camera_status
             Separator:
                 color: .0, 1., .0
             LabelRight:
