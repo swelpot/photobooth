@@ -7,7 +7,7 @@ from tempfile import mktemp
 from time import sleep
 
 
-class Printer:
+class Printer():
     @staticmethod
     def is_connected(cups_name):
         conn = cups.Connection()
@@ -23,6 +23,8 @@ class Printer:
         # Image (code taken from boothcam.py)
         im = Image.new('RGBA', (683, 384))
         im.paste(Image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
+#        im = Image.new('RGBA', (683, 384))
+#        im.paste(Image.open(image_path).resize((683, 384)), ( 0, 0, 683, 384))
 
         # Save data to a temporary file
         output = mktemp(prefix='jpg')
