@@ -4,8 +4,8 @@
 	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
 
-	"pushover.user_key": "udx9eymet9d68egrfoymrnqdh519ou",
-	"pushover.api_token": "akbhx62gwpm99h58paqotq1vqg2ejm",
+	"pushover.user_key": "",
+	"pushover.api_token": "",
 	"pushover.message_title": "Photobooth",
 	"pushover.device": "iphonestefan",
 
