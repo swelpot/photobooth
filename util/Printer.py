@@ -30,8 +30,9 @@ class Printer():
 
         # Send the picture to the printer
 #        print_id = conn.printFile(cups_name, output, "Photobooth", {})
+
+        logging.info("Sending file {0} to print on {1}".format(image_path, cups_name))
         print_id = conn.printFile(cups_name, image_path, "Photobooth", {})
-        print("Command sent")
 
         # Wait until the job finishes
         finished = False
