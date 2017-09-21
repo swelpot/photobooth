@@ -37,10 +37,10 @@ class Printer():
         finished = False
         while not finished:
             jobs = conn.getJobs()
-            print("Jobs: " + jobs)
+            print("Jobs: {0}".format(jobs))
 
             job = jobs.get(print_id)
-            print("Job: " + job)
+            print("Job: {0}".format(job))
 
             if not job:
                 finished = True
