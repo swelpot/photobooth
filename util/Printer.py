@@ -31,9 +31,23 @@ class Printer():
         # Send the picture to the printer
 #        print_id = conn.printFile(cups_name, output, "Photobooth", {})
         print_id = conn.printFile(cups_name, image_path, "Photobooth", {})
+        print("Command sent")
+
         # Wait until the job finishes
-        while conn.getJobs().get(print_id, None):
+        finished = False
+        while not finished:
+            jobs = conn.getJobs()
+            print("Jobs: " + jobs)
+
+            job = jobs.get(print_id)
+            print("Job: " + job)
+
+            if not job:
+                finished = True
+
             sleep(1)
+#        while conn.getJobs().get(print_id, None):
+#            sleep(1)
 #        unlink(output)
 
 if __name__ == '__main__':
