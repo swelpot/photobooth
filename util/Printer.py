@@ -51,4 +51,4 @@ class Printer():
 #        unlink(output)
 
 if __name__ == '__main__':
-    Printer.print_image("Canon_SELPHY_CP1300", "../../IMG_8049.JPEG")
+    Printer.print_image("Canon_SELPHY_CP1300", "../../IMG_2495_2537_2686_2764_print.JPG")
