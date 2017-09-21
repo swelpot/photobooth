@@ -35,19 +35,19 @@ class Printer():
 
         # Wait until the job finishes
         finished = False
-        while not finished:
-            jobs = conn.getJobs()
-            print("Jobs: {0}".format(jobs))
-
-            job = jobs.get(print_id)
-            print("Job: {0}".format(job))
-
-            if not job:
-                finished = True
-
-            sleep(1)
-#        while conn.getJobs().get(print_id, None):
-#            sleep(1)
+        # while not finished:
+        #     jobs = conn.getJobs()
+        #     print("Jobs: {0}".format(jobs))
+        #
+        #     job = jobs.get(print_id)
+        #     print("Job: {0}".format(job))
+        #
+        #     if not job:
+        #         finished = True
+        #
+        #     sleep(1)
+       while conn.getJobs().get(print_id, None):
+           sleep(1)
 #        unlink(output)
 
 if __name__ == '__main__':
