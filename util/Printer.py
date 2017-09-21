@@ -46,8 +46,8 @@ class Printer():
         #         finished = True
         #
         #     sleep(1)
-       while conn.getJobs().get(print_id, None):
-           sleep(1)
+        while conn.getJobs().get(print_id, None):
+            sleep(1)
 #        unlink(output)
 
 if __name__ == '__main__':
