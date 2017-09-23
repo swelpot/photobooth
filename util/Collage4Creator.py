@@ -101,12 +101,13 @@ if __name__ == '__main__':
     conf = {'photo.path_target': '/Users/stefan/Downloads/',
             'photo.path_collage': 'montage/',
             'photo.img_nb_regex': 'IMG_(\d\d\d\d).JPG',
-            "collage.cmd_template_screen": "montage_2x4",
+            "collage.cmd_template_screen": "montage_2x2",
+            "collage.cmd_template_print": "montage_2x4",
             "app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"}
 
     creator = Collage4Creator()
     creator.set_conf(conf)
-    creator.collage_screen(["/Users/stefan/Downloads/IMG_9369.JPG",
-                     "/Users/stefan/Downloads/IMG_9417.JPG",
-                     "/Users/stefan/Downloads/IMG_9715.JPG",
-                     "/Users/stefan/Downloads/IMG_9916.JPG"])
+    creator.collage_print_async(["/Users/stefan/Downloads/montage/IMG_2495.JPG",
+                     "/Users/stefan/Downloads/montage/IMG_2537.JPG",
+                     "/Users/stefan/Downloads/montage/IMG_2686.JPG",
+                     "/Users/stefan/Downloads/montage/IMG_2764.JPG"])
