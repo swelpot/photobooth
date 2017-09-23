@@ -42,7 +42,7 @@ class Collage4Creator(object):
         filename3 = photos[2]
         filename4 = photos[3]
 
-        self.os_cmd.execute(result = filepath,
+        os_cmd.execute(result = filepath,
                        photo1 = filename1,
                        photo2 = filename2,
                        photo3 = filename3,
