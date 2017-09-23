@@ -27,10 +27,30 @@ class Collage4Creator(object):
     def collage_screen(self, photos):
         logging.debug("Collage4Creator.collage_screen() with {0}".format(photos))
 
-        worker = self._get_worker(photos, 'screen')
-        worker.run()
+        collage_filename = self._get_collage_filename(photos, 'screen')
+        collage_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_collage")
+        filepath = collage_path + collage_filename
+        logging.debug("result filename {0}".format(filepath))
 
-        return worker.filepath
+        imagemagick_path = self.conf.get('app.imagemagick_path')
+        cmd_template = self.conf.get("collage.cmd_template_" + 'screen')
+
+        os_cmd = ImageMagickOSCommand(cmd_template, imagemagick_path)
+
+        filename1 = self.photos[0]
+        filename2 = self.photos[1]
+        filename3 = self.photos[2]
+        filename4 = self.photos[3]
+
+        self.os_cmd.execute(result = filepath,
+                       photo1 = filename1,
+                       photo2 = filename2,
+                       photo3 = filename3,
+                       photo4 = filename4)
+
+        logging.info('Created collage {0}'.format(filepath))
+
+        return filepath
 
     def _get_worker(self, photos, template_type):
         collage_filename = self._get_collage_filename(photos, template_type)
