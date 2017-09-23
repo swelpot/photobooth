@@ -80,7 +80,7 @@ class Controller(object):
         photos = self.camera.shoot()
 
         # check photos exist (might not immediately because of async resizing)
-        time.sleep(1)
+        time.sleep(3)
         for photo in photos:
             if not FileUtil.is_file_ready(photo):
                 Logger.error("File {0} does not exist, cannot create collage, returning to loop video".format(photo))
