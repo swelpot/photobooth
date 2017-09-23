@@ -1,7 +1,7 @@
 {imagemagick_path}montage
     {photo1} {photo2} {photo3} {photo4}
     -auto-orient
-    -thumbnail 640x398
+    -thumbnail 508x338
     -bordercolor red
     -border 0
     -background white
