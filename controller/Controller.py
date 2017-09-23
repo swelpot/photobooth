@@ -1,7 +1,6 @@
 import argparse
 import time
 
-import os
 from kivy.core.window import Window
 from kivy.logger import Logger
 
