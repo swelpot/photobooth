@@ -27,8 +27,7 @@ class ImageResize(object):
         w = Worker(file, target, self.width, self.height)
         w.start()
 
-        #return target
-        return file
+        return target
 
 
 class Worker(Thread):
