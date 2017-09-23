@@ -24,12 +24,13 @@ class LogReader(Thread):
 
         while True:
             if self.active:
+                logging.debug("LogReader: reading log file {0}".format(self.log_file))
                 inFile = open(self.log_file, 'r')
                 inFile.seek(fileBytePos)
 
                 data = inFile.read()
                 if data:
-                    self.log_consumer.add_log(data)
+                    self.log_consumer(data)
 
                 fileBytePos = inFile.tell()
                 inFile.close()

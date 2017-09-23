@@ -32,7 +32,7 @@ class AdminScreen(Screen):
         self.controller = controller
 
         home_dir = expanduser("~")
-        self.log_read = LogReader(home_dir + '/.kivy/logs', self)
+        self.log_read = LogReader(home_dir + '/.kivy/logs', self.add_log)
         self.log_read.start()
 
         Clock.schedule_interval(self._update_log, .5)
