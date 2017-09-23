@@ -21,6 +21,5 @@ class FileUtil(object):
 
             file_ready = os.path.isfile(file)
 
-        time.sleep(0.5)
         logging.debug("FileUtil.is_file_ready({0}) --> {1}".format(file, file_ready))
         return file_ready
