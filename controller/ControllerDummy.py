@@ -6,7 +6,7 @@ from kivy.logger import Logger
 
 from SegmentDisplayController import SegmentDisplayController
 from controller.ButtonControllerDummy import ButtonControllerDummy
-from controller.Camera4ControllerDummy import Camera4ControllerDummy
+from controller.Camera4ControllerDummy import Camera4Controller
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
@@ -25,7 +25,7 @@ class Controller(object):
 
     def start(self):
         self.button = ButtonControllerDummy(self)
-        self.camera = Camera4ControllerDummy()
+        self.camera = Camera4Controller()
         self.creator = Collage4Creator()
         #        self.resizer = ImageResizeDummy()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
