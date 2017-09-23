@@ -32,18 +32,17 @@ class ShowImageScreen(Screen):
         Logger.debug("ShowImageScreen.set_image() with {0}".format(image))
         self.obj_image.source = image
 
-        #if self.controller.get_conf("app.printing_enabled"):
+        if self.controller.get_conf("app.printing_enabled"):
             # show print dialog after x seconds if printing enabled
-            #self.event = Clock.schedule_once(self._show_print_dialog, self.controller.get_conf("app.show_image_duration"))
+            self.event = Clock.schedule_once(self._show_print_dialog, self.controller.get_conf("app.show_image_duration"))
 
     def on_touch_up(self, touch):
         Logger.debug("Touch UP: x: {0}, y: {1}".format(touch.px, touch.py))
 
         # show print dialog when screen pressed
         if self.controller.get_conf("app.printing_enabled"):
-            #self.event.cancel()
-            #self._show_print_dialog()
-            self.abort_print_dialog()
+            self.event.cancel()
+            self._show_print_dialog()
 
     def print_image(self):
         """ called from kv file """
@@ -55,7 +54,7 @@ class ShowImageScreen(Screen):
     def abort_print_dialog(self):
         """ called from kv file """
         self.controller.show_loop_screen()
-        #self._hide_print_dialog()
+        self._hide_print_dialog()
 
     def _show_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.show_print_dialog()')
