@@ -27,12 +27,15 @@ class ImageResize(object):
         w = Worker(file, target, self.width, self.height)
         w.start()
 
-        return target
+        #return target
+        return file
 
 
 class Worker(Thread):
     def __init__(self, file, target, width, height):
         super(Worker, self).__init__()
+        self.daemon = True
+
         self.file = file
         self.target = target
         self.width = width
