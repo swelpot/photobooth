@@ -1,6 +1,6 @@
 from kivy.graphics import Color
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty, NumericProperty, Clock, StringProperty
+from kivy.properties import ObjectProperty, NumericProperty, Clock, StringProperty, ListProperty
 from kivy.uix.screenmanager import Screen
 from kivy.logger import Logger
 
@@ -16,13 +16,17 @@ class ShowImageScreen(Screen):
     g = NumericProperty(0.0)
     b = NumericProperty(0.0)
 
-    pos_x = NumericProperty()
+    list_pos_print_dialog = ListProperty()
+    org_pos_print_dialog = None
 
     event = None
 
     def __init__(self, controller):
         super(ShowImageScreen, self).__init__()
         self.controller = controller
+
+        # initial hide of print dialog
+        Clock.schedule_once(self._hide_print_dialog, 10)
 
     def switch_mode(self):
         self.r = float(self.controller.get_conf("app.video_background_color_r")) / 255.0
@@ -60,12 +64,13 @@ class ShowImageScreen(Screen):
     def _show_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.show_print_dialog()')
 
-        self.pos_x = 500
+        self.list_pos_print_dialog[0] = self.org_pos_print_dialog
 
     def _hide_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.hide_print_dialog()')
 
-        self.pos_x = 500
+        self.org_pos_print_dialog = self.list_pos_print_dialog[0]
+        self.list_pos_print_dialog[0] = 10000
         self.obj_lbl_print_copies.text = '1'
 
 #Builder.load_file("screens/ShowImagePrintDialog.kv")

@@ -2,7 +2,7 @@
     name: 'show_image'
     str_image1: 'resources/empty.jpg'
     obj_lbl_print_copies: lbl_copies_tag
-    pos_x: 500
+    list_pos_print_dialog: (self.width / 2 - obj_print_layout.width / 2, 0)
 
     canvas.before:
         Color:
@@ -16,13 +16,15 @@
             source: root.str_image1
 
         BoxLayout:
+            id: obj_print_layout
             size_hint: 0.4, 0.1
             spacing: 10
             padding: 10
 
 
             orientation: 'horizontal'
-            pos: (root.pos_x, 0)
+            pos: root.list_pos_print_dialog
+
 
 
             canvas.before:
