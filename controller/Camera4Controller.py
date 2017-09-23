@@ -9,9 +9,9 @@ import logging
 from controller.CameraController import CameraController
 
 
-class CameraController4(CameraController):
+class Camera4Controller(CameraController):
     def __init__(self, controller, target_path):
-        super(CameraController4, self).__init__(controller, target_path)
+        super(Camera4Controller, self).__init__(controller, target_path)
 
 
     def shoot(self):
