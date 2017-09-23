@@ -37,10 +37,10 @@ class Collage4Creator(object):
 
         os_cmd = ImageMagickOSCommand(cmd_template, imagemagick_path)
 
-        filename1 = self.photos[0]
-        filename2 = self.photos[1]
-        filename3 = self.photos[2]
-        filename4 = self.photos[3]
+        filename1 = photos[0]
+        filename2 = photos[1]
+        filename3 = photos[2]
+        filename4 = photos[3]
 
         self.os_cmd.execute(result = filepath,
                        photo1 = filename1,
