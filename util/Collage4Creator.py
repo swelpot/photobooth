@@ -16,7 +16,7 @@ class Collage4Creator(object):
         self.conf = conf
 
     def collage_print_async(self, photos):
-        Logger.debug("Collage4Creator.collage_print_async() with {0}".format(photos))
+        logging.debug("Collage4Creator.collage_print_async() with {0}".format(photos))
 
         worker = self._get_worker(photos, 'print')
         worker.start()
@@ -25,7 +25,7 @@ class Collage4Creator(object):
 
     # create collage for screen display
     def collage_screen(self, photos):
-        Logger.debug("Collage4Creator.collage_screen() with {0}".format(photos))
+        logging.debug("Collage4Creator.collage_screen() with {0}".format(photos))
 
         worker = self._get_worker(photos, 'screen')
         worker.run()
@@ -36,6 +36,7 @@ class Collage4Creator(object):
         collage_filename = self._get_collage_filename(photos, template_type)
         collage_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_collage")
         filepath = collage_path + collage_filename
+        logging.debug("result filename {0}".format(filepath))
 
         imagemagick_path = self.conf.get('app.imagemagick_path')
         cmd_template = self.conf.get("collage.cmd_template_" + template_type)
@@ -55,7 +56,7 @@ class Collage4Creator(object):
         if img_nb_search:
             img_nb = img_nb_search.group(1)
         else:
-            Logger.warn('Could not extract image number from file {0}'.format(filename))
+            logging.warn('Could not extract image number from file {0}'.format(filename))
 
         return img_nb
 
@@ -91,7 +92,7 @@ class WorkerThread(Thread):
                        photo3 = filename3,
                        photo4 = filename4)
 
-        Logger.info('Created collage {0}'.format(self.filepath))
+        logging.info('Created collage {0}'.format(self.filepath))
 
 
 if __name__ == '__main__':
@@ -100,7 +101,7 @@ if __name__ == '__main__':
 
     conf = {'photo.path_target': '/Users/stefan/Downloads/',
             'photo.path_collage': 'montage/',
-            'photo.img_nb_regex': 'IMG_(\d\d\d\d).JPG',
+            'photo.img_nb_regex': '[_I]MG_(\d\d\d\d).JPG',
             "collage.cmd_template_screen": "montage_2x2",
             "collage.cmd_template_print": "montage_2x4",
             "app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/"}
@@ -109,5 +110,5 @@ if __name__ == '__main__':
     creator.set_conf(conf)
     creator.collage_print_async(["/Users/stefan/Downloads/montage/IMG_2495.JPG",
                      "/Users/stefan/Downloads/montage/IMG_2537.JPG",
-                     "/Users/stefan/Downloads/montage/IMG_2686.JPG",
+                     "/Users/stefan/Downloads/montage/_MG_2686.JPG",
                      "/Users/stefan/Downloads/montage/IMG_2764.JPG"])
