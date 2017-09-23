@@ -18,7 +18,7 @@ from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, CardTransition
 
 
-IS_DUMMY = False
+IS_DUMMY = True
 
 if not IS_DUMMY:
     from controller.Controller import Controller

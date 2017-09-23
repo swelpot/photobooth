@@ -21,6 +21,7 @@ class Controller(object):
     collage_screen = None
     collage_print = None
     last_log_id = None
+    button_pressed_active = False
 
     def __init__(self, app):
         self.app = app
@@ -61,6 +62,14 @@ class Controller(object):
 
     def button_pressed(self):
         Logger.debug("Controller.buttonPressed()")
+
+        if self.button_pressed_active:
+            Logger.warn("Controller.buttonPressed() is already active. Action supressed.")
+            return
+
+        self.button_pressed_active = True
+
+
         self.button.lights_off()
 
         # trigger switch to countdown screen
@@ -97,6 +106,9 @@ class Controller(object):
             self.last_log_id = ps.add_log(self.conf.get("project_name"),
                                           self.collage_print,
                                           0)
+
+        self.button_pressed_active = True
+
         # if self.conf.get("instagram.enabled"):
         #     iu = InstagramUpload(self.conf.get("instagram.username"),
         #                          self.conf.get("instagram.password"),
