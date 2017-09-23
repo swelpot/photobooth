@@ -59,6 +59,11 @@ class ShowImageScreen(Screen):
     def abort_print_dialog(self):
         """ called from kv file """
         self.controller.show_loop_screen()
+
+        # cancel Clock if present
+        if self.event:
+            self.event.cancel()
+
         self._hide_print_dialog()
 
     def _show_print_dialog(self, *args):
