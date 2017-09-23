@@ -14,7 +14,7 @@ from util.ImageResize import ImageResize
 from util.PhotoStore import PhotoStore
 
 
-class ControllerDummy():
+class Controller():
     conf = None
     collage_screen = None
     collage_print = None

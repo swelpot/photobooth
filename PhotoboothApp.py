@@ -1,14 +1,10 @@
 import logging
-
 import kivy
-from kivy.graphics import Color
-from kivy.graphics import Rectangle
-from kivy.properties import ObjectProperty, NumericProperty
-
 kivy.require('1.10.0')
 
+from kivy.properties import NumericProperty
+
 from util.LoggerPatch import LoggerPatch
-from controller.ControllerDummy import ControllerDummy
 from screens.AdminScreen import AdminScreen
 from screens.ButtonPressedScreen import ButtonPressedScreen
 from screens.LoopVideoScreen import LoopVideoScreen
@@ -20,6 +16,14 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, CardTransition
+
+
+IS_DUMMY = False
+
+if not IS_DUMMY:
+    from controller.Controller import Controller
+else:
+    from controller.ControllerDummy import Controller
 
 
 class ScreenManagement(ScreenManager):
@@ -49,8 +53,8 @@ class MainApp(App):
 
     def build(self):
         Logger.debug("MainApp.build()")
-        # controller = Controller(mainApp)
-        self.controller = ControllerDummy(self)
+        self.controller = Controller(mainApp)
+        #self.controller = ControllerDummy(self)
         self.controller.start()
 
         self.sm = ScreenManagement(transition=CardTransition())

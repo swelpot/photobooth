@@ -96,13 +96,11 @@ class Controller():
         #                          self.conf.get("instagram.hashtag"))
         #     iu.start()
 
-    def print_image(self, nb_copies):
-        Logger.info('Printing {0} copies'.format(nb_copies))
-
+    def check_print_image_ready(self):
+        ''' check if print image creation is finished! '''
         max_wait_time = 10 # seconds
-        sleep_time = 0.5
+        sleep_time = 0.5 # seconds
 
-        # print (check if print image creation is finished!)
         counter = 0
         image_ready = os.path.isfile(self.collage_print)
         while counter < (max_wait_time / sleep_time) and not image_ready:
@@ -110,6 +108,12 @@ class Controller():
             counter = counter + 1
 
             image_ready = os.path.isfile(self.collage_print)
+
+    def print_image(self, nb_copies):
+        Logger.info('Printing {0} copies'.format(nb_copies))
+
+        # print (check if print image creation is finished!)
+        image_ready = self.check_print_image_ready()
 
         if image_ready:
             # print
