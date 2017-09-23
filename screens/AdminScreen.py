@@ -1,6 +1,8 @@
 import os
 from Queue import Queue
 
+import sys
+
 from util.LogReader import LogReader
 from util.NetworkUtil import NetworkUtil
 from os.path import expanduser
@@ -55,6 +57,9 @@ class AdminScreen(Screen):
 
     def reboot(self):
         os.system('sudo shutdown -r now')
+
+    def exit_console(self):
+        sys.exit()
 
     def reset_printcnt(self):
         with PhotoStore() as ps:
