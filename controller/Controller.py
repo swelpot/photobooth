@@ -112,7 +112,7 @@ class Controller(object):
 
         if image_ready:
             # print
-            with PrintSpooler as ps:
+            with PrintSpooler() as ps:
                 ps.print_image_async(self.conf.get("printer.cups_name"), self.collage_print, nb_copies)
         else:
             Logger.error("Error while printing. Image {0} not ready after waiting {1}s.".format(self.collage_print, self.max_wait_time_for_print_image))
