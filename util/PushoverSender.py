@@ -3,7 +3,7 @@ import httplib, urllib
 import datetime
 
 
-class PushoverSender():
+class PushoverSender(object):
     @staticmethod
     def send(conf, message):
         timestamp = datetime.datetime.now()

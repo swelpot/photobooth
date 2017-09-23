@@ -5,7 +5,7 @@ from sqlite3 import Error
 from kivy import Config
 from kivy.logger import Logger
 
-class PhotoStore():
+class PhotoStore(object):
     dbfile = 'photobooth.db'
 
     sql_create_photolog_table = """ CREATE TABLE IF NOT EXISTS photolog (

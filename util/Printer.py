@@ -7,7 +7,7 @@ from tempfile import mktemp
 from time import sleep
 
 
-class Printer():
+class Printer(object):
     @staticmethod
     def is_connected(cups_name):
         conn = cups.Connection()

@@ -16,11 +16,13 @@ from util.PhotoStore import PhotoStore
 from util.PrintSpooler import PrintSpooler
 
 
-class Controller():
+class Controller(object):
     conf = None
     collage_screen = None
     collage_print = None
     last_log_id = None
+
+    max_wait_time_for_print_image = 10  # seconds
 
     def __init__(self, app):
         self.app = app
@@ -98,12 +100,11 @@ class Controller():
 
     def check_print_image_ready(self):
         ''' check if print image creation is finished! '''
-        max_wait_time = 10 # seconds
         sleep_time = 0.5 # seconds
 
         counter = 0
         image_ready = os.path.isfile(self.collage_print)
-        while counter < (max_wait_time / sleep_time) and not image_ready:
+        while counter < (self.max_wait_time_for_print_image / sleep_time) and not image_ready:
             time.sleep(sleep_time)
             counter = counter + 1
 
@@ -120,7 +121,7 @@ class Controller():
             with PrintSpooler as ps:
                 ps.print_image_async(self.conf.get("printer.cups_name"), self.collage_print, nb_copies)
         else:
-            Logger.error("Error while printing. Image {0} not ready after waiting {1}s.".format(self.collage_print, max_wait_time))
+            Logger.error("Error while printing. Image {0} not ready after waiting {1}s.".format(self.collage_print, self.max_wait_time_for_print_image))
 
 
         self.show_loop_screen()

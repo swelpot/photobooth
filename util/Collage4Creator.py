@@ -9,7 +9,7 @@ from kivy.logger import Logger
 from util.ImageMagickOSCommand import ImageMagickOSCommand
 
 
-class Collage4Creator():
+class Collage4Creator(object):
     conf = None
 
     def set_conf(self, conf):

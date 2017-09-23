@@ -10,7 +10,7 @@ else:
     from util.Printer import Printer
 
 
-class PrintSpooler():
+class PrintSpooler(object):
     print_thread = None
 
     def __init__(self):

@@ -6,7 +6,7 @@ from kivy.logger import Logger
 import gphoto2 as gp
 import logging
 
-class CameraController():
+class CameraController(object):
     def __init__(self, controller, target_path):
         self.controller = controller
         self.target_path = target_path

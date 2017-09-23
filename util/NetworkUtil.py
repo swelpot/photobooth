@@ -1,6 +1,6 @@
 import netifaces as ni
 
-class NetworkUtil():
+class NetworkUtil(object):
     interfaces = ('wlan0', 'eth0', 'en0')
 
     maxLength = {

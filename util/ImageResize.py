@@ -2,7 +2,7 @@ from kivy.logger import Logger
 from wand.image import Image
 import ntpath
 
-class ImageResize():
+class ImageResize(object):
     def __init__(self, path, width, height):
         self.path = path
         self.width = width

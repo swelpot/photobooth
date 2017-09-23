@@ -6,7 +6,7 @@ from jsmin import jsmin
 from kivy import Logger
 
 
-class ConfUtil():
+class ConfUtil(object):
     @staticmethod
     def load_json_conf(conf_file):
         warnings.filterwarnings("ignore")

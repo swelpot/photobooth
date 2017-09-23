@@ -3,7 +3,7 @@ import logging
 import time
 
 
-class LoggerPatch():
+class LoggerPatch(object):
     
     def __init__(self):
         self.emit_org = None
