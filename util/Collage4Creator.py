@@ -7,6 +7,7 @@ from kivy import Config
 from kivy.logger import Logger
 
 from util.ImageMagickOSCommand import ImageMagickOSCommand
+from util.ImageResize import ImageResize
 
 
 class Collage4Creator(object):
@@ -47,6 +48,10 @@ class Collage4Creator(object):
                        photo2 = filename2,
                        photo3 = filename3,
                        photo4 = filename4)
+
+        resize_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_resized")
+        ir = ImageResize(resize_path, 900, 600)
+        filepath = ir.resize(filepath)
 
         logging.info('Created collage {0}'.format(filepath))
 
