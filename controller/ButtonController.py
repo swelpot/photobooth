@@ -1,7 +1,9 @@
 from kivy.logger import Logger
 from threading import Thread
-import RPi.GPIO as GPIO
 import time
+
+import RPi.GPIO as GPIO
+
 
 gpioPin = 18
 

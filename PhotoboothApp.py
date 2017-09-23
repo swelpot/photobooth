@@ -1,3 +1,5 @@
+IS_DUMMY = False
+
 import logging
 import kivy
 kivy.require('1.10.0')
@@ -17,8 +19,6 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from kivy.uix.screenmanager import ScreenManager, CardTransition
 
-
-IS_DUMMY = False
 
 if not IS_DUMMY:
     from controller.Controller import Controller

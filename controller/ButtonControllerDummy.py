@@ -2,9 +2,9 @@ from kivy.logger import Logger
 from threading import Thread
 import time
 
-class ButtonControllerDummy(Thread):
+class ButtonController(Thread):
     def __init__(self, controller):
-        super(ButtonControllerDummy, self).__init__()
+        super(ButtonController, self).__init__()
         self.daemon = True
 
         self.controller = controller
