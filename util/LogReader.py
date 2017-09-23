@@ -1,4 +1,5 @@
 import glob
+import logging
 from threading import Thread
 import time
 import os
@@ -16,6 +17,7 @@ class LogReader(Thread):
 
         list_of_files = glob.glob(logpath + '/kivy*.txt')
         self.log_file = max(list_of_files, key=os.path.getctime) # latest file in dir
+        logging.info("LogReader: using log file {0}".format(self.log_file))
 
     def run(self):
         fileBytePos = 0
