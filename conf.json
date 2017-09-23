@@ -15,7 +15,7 @@
 	"photo.path_resized": "resized/",
 	"photo.img_nb_regex": "IMG_(\\d\\d\\d\\d).JPG",
 
-	"camera.trigger_delay": 3, //how long does the camera need to actually take the photo
+	"camera.trigger_delay": 2, //how long does the camera need to actually take the photo
 
 	"app.touch_trigger": true,
 	//"app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/",
