@@ -12,12 +12,12 @@ class ButtonController(Thread):
 
     def run(self):
         time.sleep(15)
-        self.button_pressed()
+        #self.button_pressed()
         time.sleep(30)
-        self.button_pressed()
+        #self.button_pressed()
 
     def button_pressed(self):
-        Logger.debug("ButtonController.buttonPressed()")
+        Logger.debug("ButtonControllerDummy.buttonPressed()")
         self.controller.button_pressed()
 
     def lights_off(self):
