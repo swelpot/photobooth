@@ -4,7 +4,7 @@ import time
 from kivy.core.window import Window
 from kivy.logger import Logger
 
-from ButtonControllerDummy import ButtonController
+from ButtonController import ButtonController
 from SegmentDisplayController import SegmentDisplayController
 from controller.Camera4ControllerDummy import Camera4Controller
 from util.Collage4Creator import Collage4Creator
