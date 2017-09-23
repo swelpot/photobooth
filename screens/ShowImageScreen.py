@@ -16,17 +16,15 @@ class ShowImageScreen(Screen):
     g = NumericProperty(0.0)
     b = NumericProperty(0.0)
 
-    list_pos_print_dialog = ListProperty()
-    org_pos_print_dialog = None
+    int_screen_width = NumericProperty()
+    obj_print_layout = ObjectProperty()
+    int_pos_x = NumericProperty()
 
     event = None
 
     def __init__(self, controller):
         super(ShowImageScreen, self).__init__()
         self.controller = controller
-
-        # initial hide of print dialog
-        Clock.schedule_once(self._hide_print_dialog, 10)
 
     def switch_mode(self):
         self.r = float(self.controller.get_conf("app.video_background_color_r")) / 255.0
@@ -69,13 +67,12 @@ class ShowImageScreen(Screen):
     def _show_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.show_print_dialog()')
 
-        self.list_pos_print_dialog[0] = self.org_pos_print_dialog
+        self.int_pos_x = self.int_screen_width / 2 - self.obj_print_layout.width / 2
 
     def _hide_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.hide_print_dialog()')
 
-        self.org_pos_print_dialog = self.list_pos_print_dialog[0]
-        self.list_pos_print_dialog[0] = 10000
+        self.int_pos_x = 5000
         self.obj_lbl_print_copies.text = '1'
 
 #Builder.load_file("screens/ShowImagePrintDialog.kv")
