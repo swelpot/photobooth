@@ -1,4 +1,4 @@
-/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/montage
+{imagemagick_path}montage
     {photo1} {photo1} {photo2} {photo2} {photo3} {photo3} {photo4} {photo4}
     -auto-orient
     -thumbnail 1280x796
