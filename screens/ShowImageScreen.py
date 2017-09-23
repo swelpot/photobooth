@@ -65,7 +65,7 @@ class ShowImageScreen(Screen):
     def _hide_print_dialog(self, *args):
         Logger.debug('ShowImageScreen.hide_print_dialog()')
 
-        self.pos_x = 5000
+        self.pos_x = 500
         self.obj_lbl_print_copies.text = '1'
 
 Builder.load_file("screens/ShowImageScreen.kv")
