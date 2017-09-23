@@ -10,6 +10,7 @@ from SegmentDisplayController import SegmentDisplayController
 from controller.Camera4Controller import Camera4Controller
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
+from util.FileUtil import FileUtil
 from util.ImageResize import ImageResize
 #from util.InstagramUpload import InstagramUpload
 from util.PhotoStore import PhotoStore
@@ -22,15 +23,15 @@ class Controller(object):
     collage_print = None
     last_log_id = None
 
-    max_wait_time_for_print_image = 10  # seconds
-
     def __init__(self, app):
         self.app = app
         self.init_conf()
 
     def start(self):
         self.button = ButtonController(self)
-        self.camera = Camera4Controller(self, self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"))
+        self.camera = Camera4Controller(self,
+                                        self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"),
+                                        self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"))
         self.creator = Collage4Creator()
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
@@ -78,14 +79,19 @@ class Controller(object):
         # shoot photo
         photos = self.camera.shoot()
 
+        # check photos exist (might not immediately because of async resizing)
+        for photo in photos:
+            if not FileUtil.is_file_ready(photo):
+                Logger.error("File {0} does not exist, cannot create collage, returning to loop video".format(photo))
+                self.show_loop_screen()
+
+
         self.collage_screen = self.creator.collage_screen(photos)
         self.collage_print = self.creator.collage_print_async(photos)
         #resized = self.resizer.resize(collage)
 
         # update gui image
         self.app.show_image_screen_async(self.collage_screen)
-
-        self.button.lights_on()
 
         with PhotoStore() as ps:
             self.last_log_id = ps.add_log(self.conf.get("project_name"),
@@ -98,23 +104,11 @@ class Controller(object):
         #                          self.conf.get("instagram.hashtag"))
         #     iu.start()
 
-    def check_print_image_ready(self):
-        ''' check if print image creation is finished! '''
-        sleep_time = 0.5 # seconds
-
-        counter = 0
-        image_ready = os.path.isfile(self.collage_print)
-        while counter < (self.max_wait_time_for_print_image / sleep_time) and not image_ready:
-            time.sleep(sleep_time)
-            counter = counter + 1
-
-            image_ready = os.path.isfile(self.collage_print)
-
     def print_image(self, nb_copies):
         Logger.info('Printing {0} copies'.format(nb_copies))
 
         # print (check if print image creation is finished!)
-        image_ready = self.check_print_image_ready()
+        image_ready = FileUtil.is_file_ready(self.collage_print)
 
         if image_ready:
             # print
@@ -139,6 +133,7 @@ class Controller(object):
 
     # after printing or on abort print dialog
     def show_loop_screen(self):
+        self.button.lights_on()
         self.app.show_loop_screen()
 
     # to operations by clicked mode

@@ -6,10 +6,14 @@ from kivy.logger import Logger
 import gphoto2 as gp
 import logging
 
+from util.ImageResize import ImageResize
+
+
 class CameraController(object):
-    def __init__(self, controller, target_path):
+    def __init__(self, controller, target_path_org, target_path_resize):
         self.controller = controller
-        self.target_path = target_path
+        self.target_path_org = target_path_org
+        self.target_path_resize = target_path_resize
 
         gp.use_python_logging(mapping={
             gp.GP_LOG_ERROR: logging.INFO,
@@ -71,7 +75,7 @@ class CameraController(object):
             self.camera, gp.GP_CAPTURE_IMAGE, self.context))
 
         Logger.debug('Camera file path: {0}/{1}'.format(file_path.folder, file_path.name))
-        target_rel = os.path.join(self.target_path, file_path.name)
+        target_rel = os.path.join(self.target_path_org, file_path.name)
         target_abs = os.path.abspath(target_rel)
         Logger.debug('Copying image to {0}'.format(target_abs))
 
@@ -84,4 +88,8 @@ class CameraController(object):
 
         #error = gp.gp_camera_exit(self.camera, self.context)
         #time.sleep(2)
-        return str(target_abs)
+
+        ir = ImageResize(self.target_path_resize, 900, 600)
+        filename = ir.resize_async(str(target_abs))
+
+        return filename
