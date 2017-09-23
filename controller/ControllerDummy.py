@@ -6,7 +6,7 @@ from kivy.logger import Logger
 
 from SegmentDisplayController import SegmentDisplayController
 from controller.ButtonControllerDummy import ButtonControllerDummy
-from controller.CameraController4Dummy import CameraController4Dummy
+from controller.Camera4ControllerDummy import CameraController4Dummy
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.ImageResize import ImageResize
