@@ -4,7 +4,7 @@ import time
 from kivy.core.window import Window
 from kivy.logger import Logger
 
-from ButtonController import ButtonController
+from ButtonControllerDummy import ButtonController
 from SegmentDisplayController import SegmentDisplayController
 from controller.Camera4ControllerDummy import Camera4Controller
 from util.Collage4Creator import Collage4Creator
@@ -93,6 +93,7 @@ class Controller(object):
             if not FileUtil.is_file_ready(photo):
                 Logger.error("File {0} does not exist, cannot create collage, returning to loop video".format(photo))
                 self.show_loop_screen()
+                self.button_pressed_active = False
 
 
         self.collage_screen = self.creator.collage_screen(photos)
@@ -107,7 +108,7 @@ class Controller(object):
                                           self.collage_print,
                                           0)
 
-        self.button_pressed_active = True
+        self.button_pressed_active = False
 
         # if self.conf.get("instagram.enabled"):
         #     iu = InstagramUpload(self.conf.get("instagram.username"),
