@@ -49,10 +49,6 @@ class Collage4Creator(object):
                        photo3 = filename3,
                        photo4 = filename4)
 
-        resize_path = self.conf.get("photo.path_target") + self.conf.get("photo.path_resized")
-        ir = ImageResize(resize_path, 1110, 740)
-        filepath = ir.resize(filepath)
-
         logging.info('Created collage {0}'.format(filepath))
 
         return filepath
