@@ -1,6 +1,6 @@
 from kivy.graphics import Color
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty, NumericProperty, Clock
+from kivy.properties import ObjectProperty, NumericProperty, Clock, StringProperty
 from kivy.uix.screenmanager import Screen
 from kivy.logger import Logger
 
@@ -8,8 +8,9 @@ from util.PhotoStore import PhotoStore
 
 
 class ShowImageScreen(Screen):
-    obj_image = ObjectProperty()
     obj_lbl_print_copies = ObjectProperty()
+
+    str_image1 = StringProperty()
 
     r = NumericProperty(0.0)
     g = NumericProperty(0.0)
@@ -30,7 +31,7 @@ class ShowImageScreen(Screen):
 
     def set_image(self, image):
         Logger.debug("ShowImageScreen.set_image() with {0}".format(image))
-        self.obj_image.source = image
+        self.str_image1 = image
 
         if self.controller.get_conf("app.printing_enabled"):
             # show print dialog after x seconds if printing enabled

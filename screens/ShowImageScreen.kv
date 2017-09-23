@@ -1,20 +1,19 @@
 <ShowImageScreen>:
     name: 'show_image'
-    obj_image: imagetag
+    str_image1: 'resources/empty.jpg'
     obj_lbl_print_copies: lbl_copies_tag
     pos_x: 500
 
     canvas.before:
         Color:
-            rgb: 0, 0, 0
+            rgb: 1, 0, 0
         Rectangle:
             pos: self.pos
             size: self.size
 
     FloatLayout:
         Image:
-            id: imagetag
-            source: 'resources/empty.jpg'
+            source: root.str_image1
 
         BoxLayout:
             size_hint: 0.4, 0.1
