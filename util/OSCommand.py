@@ -25,7 +25,7 @@ class OSCommand(object):
         Logger.debug('Command "{0}" took {1}.{2}s'.format(cmd, processing_time.seconds, processing_time.microseconds))
 
     def _load_template(self, templatefile):
-        filename = '../cmd_templates/{0}.txt'.format(templatefile)
+        filename = 'cmd_templates/{0}.txt'.format(templatefile)
 
         inFile = open(filename, 'r')
         template = inFile.read()
