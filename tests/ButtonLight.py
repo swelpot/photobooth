@@ -2,7 +2,6 @@ import time
 
 import RPi.GPIO as GPIO
 
-PIN_3V = 20
 PIN_RELAIS = 16
 
 class ButtonLight(object):
@@ -10,8 +9,6 @@ class ButtonLight(object):
         super(ButtonLight, self).__init__()
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(PIN_3V, GPIO.OUT)
-        GPIO.output(PIN_3V, GPIO.HIGH)
 
         GPIO.setup(PIN_RELAIS, GPIO.OUT)
 
@@ -20,13 +17,20 @@ class ButtonLight(object):
 
     def lights_on(self):
         GPIO.output(PIN_RELAIS, GPIO.LOW)
-    
+
 if __name__ == '__main__':
     bl = ButtonLight()
-    time.sleep(2)
 
-    while True:
-        bl.lights_off()
-        time.sleep(1)
-        bl.lights_on()
-        time.sleep(1)
+    counter = 10.0
+    while counter >= 0:
+        print "Counter: {0}".format(counter)
+        sleeptime = 1.0
+        if counter <= 1.0:
+            sleeptime = 0.1
+
+        GPIO.output(PIN_RELAIS, GPIO.HIGH)
+        time.sleep(sleeptime / 2)
+        GPIO.output(PIN_RELAIS, GPIO.LOW)
+        time.sleep(sleeptime / 2)
+
+        counter = counter - (sleeptime)

@@ -1,0 +1,32 @@
+<ShowImageScreen2>:
+    name: 'show_image'
+    str_image1: 'resources/empty.jpg'
+    str_image2: 'resources/empty.jpg'
+    str_image3: 'resources/empty.jpg'
+    str_image4: 'resources/empty.jpg'
+
+    canvas.before:
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+
+            Image:
+                id: img1
+                source: root.str_image1
+            Image:
+                id: img2
+                source: root.str_image2
+            Image:
+                id: img3
+                source: root.str_image3
+            Image:
+                id: img4
+                source: root.str_image4
+
