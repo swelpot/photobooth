@@ -4,9 +4,9 @@ import time
 from kivy.core.window import Window
 from kivy.logger import Logger
 
-from ButtonController import ButtonController
+from ButtonControllerDummy import ButtonController
 from SegmentDisplayController import SegmentDisplayController
-from controller.Camera4Controller import Camera4Controller
+from controller.Camera4ControllerDummy import Camera4Controller
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
 from util.FileUtil import FileUtil
@@ -70,7 +70,10 @@ class Controller(object):
         self.button_pressed_active = True
 
 
-        self.button.lights_off()
+        trigger_delay = self.conf.get("camera.trigger_delay")
+        time_to_prepare = self.conf.get("app.time_to_prepare")
+
+        self.button.lights_countdown(time_to_prepare)
 
         # trigger switch to countdown screen
         self.app.show_button_pressed_screen_async()
@@ -79,9 +82,6 @@ class Controller(object):
         seg_display.start()
 
         # wait for trigger delay
-        trigger_delay = self.conf.get("camera.trigger_delay")
-        time_to_prepare = self.conf.get("app.time_to_prepare")
-
         time.sleep(time_to_prepare - trigger_delay)
 
         # shoot photo

@@ -25,3 +25,6 @@ class ButtonController(Thread):
 
     def lights_on(self):
         pass
+
+    def lights_countdown(self, duration):
+        pass

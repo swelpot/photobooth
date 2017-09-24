@@ -5,7 +5,9 @@ import time
 import RPi.GPIO as GPIO
 
 
-gpioPin = 18
+PIN_BUTTON = 18
+PIN_RELAIS = 16
+
 
 class ButtonController(Thread):
     def __init__(self, controller):
@@ -15,32 +17,43 @@ class ButtonController(Thread):
         self.controller = controller
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(gpioPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(PIN_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(PIN_RELAIS, GPIO.OUT)
 
 
     def run(self):
         while True:
-            input_state = GPIO.input(gpioPin)
+            input_state = GPIO.input(PIN_BUTTON)
             #print "state: {0}".format(input_state)
             if input_state == False:
                 self.button_pressed()
 
             time.sleep(0.2)
-        
-        #time.sleep(5)
-        #self.button_pressed()
-        #time.sleep(30)
-        #self.button_pressed()
 
     def button_pressed(self):
         Logger.debug("ButtonController.buttonPressed()")
         self.controller.button_pressed()
 
     def lights_off(self):
-        pass
+        GPIO.output(PIN_RELAIS, GPIO.HIGH)
 
     def lights_on(self):
-        pass
+        GPIO.output(PIN_RELAIS, GPIO.LOW)
+
+    def lights_countdown(self, duration):
+        counter = duration
+        while counter >= 0:
+            #print "Counter: {0}".format(counter)
+            sleeptime = 1.0
+            if counter <= 1.0:
+                sleeptime = 0.1
+
+            self.lights_off()
+            time.sleep(sleeptime / 2)
+            self.lights_on()
+            time.sleep(sleeptime / 2)
+
+            counter = counter - (sleeptime)
 
 class MyController():
     def button_pressed(self):
