@@ -113,8 +113,8 @@ if __name__ == '__main__':
     d = SegmentDisplayController()
     d.start()
 
-    time.sleep(2)
-    d.run_countdown_trigger(10, 3)
+    time.sleep(10)
+    d.run_countdown_trigger(10, 3, 4)
     time.sleep(15)
     d.run_countdown_photo(4)
     time.sleep(2)
