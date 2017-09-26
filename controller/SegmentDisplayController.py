@@ -114,13 +114,13 @@ class SegmentDisplayController(Thread):
             # Write the display buffer to the hardware.  This must be called to
             # update the actual display LEDs.
             self._display.write_display()
-        else:
+        elif IS_MAC:
             now = datetime.datetime.now()
 
             if not clear_display:
-                    print str(now) + " " + str(number) + (":" if colon else "")
+                    logging.info(str(now) + " " + str(number) + (":" if colon else ""))
             else:
-                print str(now) + " clear"
+                logging.info(str(now) + " clear")
 
 if __name__ == '__main__':
 
