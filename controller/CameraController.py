@@ -61,9 +61,10 @@ class CameraController(object):
         # clean up
         #gp.check_result(gp.gp_camera_exit(camera, context))
 
-    def shoot(self):
+    def shoot(self, capture_callback):
         Logger.debug("CameraController.shoot()")
         image1 = self._capture_image()
+        capture_callback(0)
         return [image1]
 
     def _capture_image(self):

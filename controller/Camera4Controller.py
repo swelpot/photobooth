@@ -14,10 +14,14 @@ class Camera4Controller(CameraController):
         super(Camera4Controller, self).__init__(controller, target_path_org, target_path_resize)
 
 
-    def shoot(self):
+    def shoot(self, capture_callback):
         Logger.debug("Camera4Controller.shoot()")
         image1 = self._capture_image()
+        capture_callback(3)
         image2 = self._capture_image()
+        capture_callback(2)
         image3 = self._capture_image()
+        capture_callback(1)
         image4 = self._capture_image()
+        capture_callback(0)
         return [image1, image2, image3, image4]

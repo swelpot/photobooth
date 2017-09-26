@@ -54,7 +54,6 @@ class MainApp(App):
     def build(self):
         Logger.debug("MainApp.build()")
         self.controller = Controller(mainApp)
-        #self.controller = ControllerDummy(self)
         self.controller.start()
 
         self.sm = ScreenManagement(transition=CardTransition())

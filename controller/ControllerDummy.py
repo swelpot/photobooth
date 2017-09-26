@@ -62,13 +62,15 @@ class Controller(object):
         # trigger switch to countdown screen
         self.app.show_button_pressed_screen_async()
 
-        seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
-        seg_display.start()
-
-        # wait for trigger delay
         trigger_delay = self.conf.get("camera.trigger_delay")
         time_to_prepare = self.conf.get("app.time_to_prepare")
+        seg_disp_time = self.conf.get("segment_display.time_to_prepare")
 
+        self.seg_display.run_countdown_trigger(seg_disp_time,
+                                               seg_disp_time - time_to_prepare,
+                                               4)
+
+        # wait for trigger delay
         time.sleep(time_to_prepare - trigger_delay)
 
         # shoot photo
@@ -114,6 +116,8 @@ class Controller(object):
 
     # after printing or on abort print dialog
     def show_loop_screen(self):
+        self.button.lights_on()
+        self.seg_display.run_loop()
         self.app.show_loop_screen()
 
     # to operations by clicked mode

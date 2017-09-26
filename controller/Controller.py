@@ -36,9 +36,11 @@ class Controller(object):
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
                                    Window.size[1])
+        self.seg_display = SegmentDisplayController()
 
         self.camera.initCamera()
         self.button.start()
+        self.seg_display.start()
 
     def init_conf(self):
         # construct the argument parser and parse the arguments
@@ -72,20 +74,22 @@ class Controller(object):
 
         trigger_delay = self.conf.get("camera.trigger_delay")
         time_to_prepare = self.conf.get("app.time_to_prepare")
+        seg_disp_time = self.conf.get("segment_display.time_to_prepare")
 
         self.button.lights_countdown(time_to_prepare)
 
         # trigger switch to countdown screen
         self.app.show_button_pressed_screen_async()
 
-        seg_display = SegmentDisplayController(self, self.conf.get("segment_display.time_to_prepare"))
-        seg_display.start()
+        self.seg_display.run_countdown_trigger(seg_disp_time,
+                                               seg_disp_time - time_to_prepare,
+                                               4)
 
         # wait for trigger delay
         time.sleep(time_to_prepare - trigger_delay)
 
         # shoot photo
-        photos = self.camera.shoot()
+        photos = self.camera.shoot(self.seg_display.run_countdown_photo)
 
         # check photos exist (might not immediately because of async resizing)
         for photo in photos:
@@ -146,6 +150,7 @@ class Controller(object):
     # after printing or on abort print dialog
     def show_loop_screen(self):
         self.button.lights_on()
+        self.seg_display.run_loop()
         self.app.show_loop_screen()
 
     # to operations by clicked mode
