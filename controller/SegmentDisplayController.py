@@ -106,8 +106,16 @@ class SegmentDisplayController(Thread):
             self._display.clear()
 
             if not clear_display:
+                pos1 = number // 1000
+                pos2 = (number - pos1) // 100
+                pos3 = (number - pos1 - pos2) // 10
+                pos4 = number - pos1 - pos2 - pos3
+                self._display.set_digit(0, pos1)
+                self._display.set_digit(1, pos2)
+                self._display.set_digit(2, pos3)
+                self._display.set_digit(3, pos4)
                 # Print a floating point number to the display.
-                self._display.print_float(number, decimal_digits=0)
+                #self._display.print_float(number, decimal_digits=0)
                 # Set the colon on or off (True/False).
                 self._display.set_colon(colon)
 
@@ -118,7 +126,7 @@ class SegmentDisplayController(Thread):
             now = datetime.datetime.now()
 
             if not clear_display:
-                    logging.info(str(now) + " " + str(number) + (":" if colon else ""))
+                    logging.error(str(now) + " " + str(number) + (":" if colon else ""))
             else:
                 logging.info(str(now) + " clear")
 
