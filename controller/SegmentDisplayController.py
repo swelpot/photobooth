@@ -1,8 +1,15 @@
+if __name__ == '__main__':
+    IS_DUMMY = True
+else:
+    from PhotoboothApp import IS_DUMMY
+
 from threading import Thread
 
 import time
 import datetime
-from Adafruit_LED_Backpack import SevenSegment
+
+if not IS_DUMMY:
+    from Adafruit_LED_Backpack import SevenSegment
 
 
 MODE_COUNTDOWN_TRIGGER = 1
@@ -24,14 +31,15 @@ class SegmentDisplayController(Thread):
         super(SegmentDisplayController, self).__init__()
         self.daemon = True
 
-        # Create display instance on default I2C address (0x70) and bus number.
-        self._display = SevenSegment.SevenSegment()
+        if not IS_DUMMY:
+            # Create display instance on default I2C address (0x70) and bus number.
+            self._display = SevenSegment.SevenSegment()
 
-        # Alternatively, create a display with a specific I2C address and/or bus.
-        # display = SevenSegment.SevenSegment(address=0x74, busnum=1)
+            # Alternatively, create a display with a specific I2C address and/or bus.
+            # display = SevenSegment.SevenSegment(address=0x74, busnum=1)
 
-        # Initialize the display. Must be called once before using the display.
-        self._display.begin()
+            # Initialize the display. Must be called once before using the display.
+            self._display.begin()
 
     def run(self):
         sleep_time = 0.25
@@ -90,26 +98,27 @@ class SegmentDisplayController(Thread):
         self._current_mode = MODE_LOOP
 
     def show_number(self, number, colon, clear_display):
-        # Clear the display buffer.
-        self._display.clear()
+        if self._display:
+            # Clear the display buffer.
+            self._display.clear()
 
-        if not clear_display:
-            # Print a floating point number to the display.
-            self._display.print_float(number, decimal_digits=0)
-            # Set the colon on or off (True/False).
-            self._display.set_colon(colon)
+            if not clear_display:
+                # Print a floating point number to the display.
+                self._display.print_float(number, decimal_digits=0)
+                # Set the colon on or off (True/False).
+                self._display.set_colon(colon)
 
-        # Write the display buffer to the hardware.  This must be called to
-        # update the actual display LEDs.
-        self._display.write_display()
-
-    # def show_number(self, number, colon, clear_display):
-    #     if not clear_display:
-    #         print str(number) + (":" if colon else "")
-    #     else:
-    #         print "clear"
+            # Write the display buffer to the hardware.  This must be called to
+            # update the actual display LEDs.
+            self._display.write_display()
+        else:
+            if not clear_display:
+                    print str(number) + (":" if colon else "")
+            else:
+                print "clear"
 
 if __name__ == '__main__':
+
     d = SegmentDisplayController()
     d.start()
 
