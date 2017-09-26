@@ -42,7 +42,7 @@ class SegmentDisplayController(Thread):
                 self._counter = self._counter + 1
                 #sleep_time = 0.25
 
-                if self._init_seconds > 0:
+                if self._init_seconds > -1:
                     self.show_number(self._seconds, False, next_clear)
                     self._init_seconds = self._init_seconds - sleep_time
                 else:
