@@ -63,7 +63,7 @@ class SegmentDisplayController(Thread):
                         self._counter = 0
                         self._seconds = self._seconds - 1
 
-                    if self._seconds < -1:
+                    else:
                         self._current_mode = MODE_COUNTDOWN_PHOTO
 
             elif self._current_mode == MODE_COUNTDOWN_PHOTO:
