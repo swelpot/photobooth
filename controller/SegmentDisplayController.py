@@ -45,7 +45,7 @@ class SegmentDisplayController(Thread):
                 self._display = None
 
     def run(self):
-        sleep_time = 0.2
+        sleep_time = 0.25
         next_clear = False
 
         while True:
@@ -63,7 +63,7 @@ class SegmentDisplayController(Thread):
                         self._counter = 0
                         self._seconds = self._seconds - 1
 
-                    else:
+                    elif self._counter > (1.0 / sleep_time) and self._seconds < 0:
                         self._current_mode = MODE_COUNTDOWN_PHOTO
 
             elif self._current_mode == MODE_COUNTDOWN_PHOTO:
