@@ -89,7 +89,7 @@ class SegmentDisplayController(Thread):
     def run_loop(self):
         self._current_mode = MODE_LOOP
 
-    def _show_number(self, number, colon, clear_display):
+    def show_number(self, number, colon, clear_display):
         # Clear the display buffer.
         self._display.clear()
 
