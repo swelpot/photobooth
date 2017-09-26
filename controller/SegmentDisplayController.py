@@ -40,7 +40,7 @@ class SegmentDisplayController(Thread):
             self._display.begin()
 
     def run(self):
-        sleep_time = 0.25
+        sleep_time = 0.2
         next_clear = False
 
         while True:
@@ -48,17 +48,17 @@ class SegmentDisplayController(Thread):
                 self._counter = self._counter + 1
                 #sleep_time = 0.25
 
-                if self._init_seconds > -1:
+                if self._init_seconds >= 0:
                     self.show_number(self._seconds, False, next_clear)
                     self._init_seconds = self._init_seconds - sleep_time
                 else:
                     self.show_number(self._seconds, False, next_clear)
 
-                    if self._counter > (1 / sleep_time) and self._seconds >= 0:
+                    if self._counter > (1.0 / sleep_time) and self._seconds >= 0:
                         self._counter = 0
                         self._seconds = self._seconds - 1
 
-                    if self._seconds < 0:
+                    if self._seconds < -1:
                         self._current_mode = MODE_COUNTDOWN_PHOTO
 
             elif self._current_mode == MODE_COUNTDOWN_PHOTO:
@@ -110,10 +110,12 @@ class SegmentDisplayController(Thread):
             # update the actual display LEDs.
             self._display.write_display()
         else:
+            now = datetime.datetime.now()
+
             if not clear_display:
-                    print str(number) + (":" if colon else "")
+                    print str(now) + " " + str(number) + (":" if colon else "")
             else:
-                print "clear"
+                print str(now) + " clear"
 
 if __name__ == '__main__':
 
