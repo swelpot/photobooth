@@ -33,7 +33,7 @@ display = SevenSegment.SevenSegment()
 display.begin()
 
 # Keep track of the colon being turned on or off.
-colon = False
+colon = True
 
 # Run through different number printing examples.
 print('Press Ctrl-C to quit.')
