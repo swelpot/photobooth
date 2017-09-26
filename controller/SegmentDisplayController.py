@@ -2,8 +2,7 @@ from threading import Thread
 
 import time
 import datetime
-from kivy.logger import Logger
-#from Adafruit_LED_Backpack import SevenSegment
+from Adafruit_LED_Backpack import SevenSegment
 
 
 MODE_COUNTDOWN_TRIGGER = 1
