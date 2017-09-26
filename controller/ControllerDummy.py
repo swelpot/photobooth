@@ -5,7 +5,7 @@ from kivy.core.window import Window
 from kivy.logger import Logger
 
 from SegmentDisplayController import SegmentDisplayController
-from controller.ButtonControllerDummy import ButtonControllerDummy
+from controller.ButtonControllerDummy import ButtonController
 from controller.Camera4ControllerDummy import Camera4Controller
 from util.Collage4Creator import Collage4Creator
 from util.ConfUtil import ConfUtil
@@ -31,6 +31,7 @@ class Controller(object):
         self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
                                    Window.size[0],
                                    Window.size[1])
+        self.seg_display = SegmentDisplayController()
 
         self.camera.initCamera()
         # self.button.start()

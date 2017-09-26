@@ -1,15 +1,13 @@
-if __name__ == '__main__':
-    IS_DUMMY = True
-else:
-    from PhotoboothApp import IS_DUMMY
-
 from threading import Thread
 
 import time
 import datetime
 
-if not IS_DUMMY:
+IS_MAC = False
+try:
     from Adafruit_LED_Backpack import SevenSegment
+except:
+    IS_MAC = True
 
 
 MODE_COUNTDOWN_TRIGGER = 1
@@ -31,7 +29,7 @@ class SegmentDisplayController(Thread):
         super(SegmentDisplayController, self).__init__()
         self.daemon = True
 
-        if not IS_DUMMY:
+        if not IS_MAC:
             # Create display instance on default I2C address (0x70) and bus number.
             self._display = SevenSegment.SevenSegment()
 
