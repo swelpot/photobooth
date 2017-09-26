@@ -1,3 +1,4 @@
+import logging
 from threading import Thread
 
 import time
@@ -37,7 +38,11 @@ class SegmentDisplayController(Thread):
             # display = SevenSegment.SevenSegment(address=0x74, busnum=1)
 
             # Initialize the display. Must be called once before using the display.
-            self._display.begin()
+            try:
+                self._display.begin()
+            except:
+                logging.error("No 7-Segment-Display found. Proceeding without display!")
+                self._display = None
 
     def run(self):
         sleep_time = 0.2
