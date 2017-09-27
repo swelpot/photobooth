@@ -176,4 +176,4 @@ class SegementTriggerDelay(Thread):
 
     def run(self):
         time.sleep(self._delay)
-        self._callable(self.arg)
+        self._callable(self._arg)
