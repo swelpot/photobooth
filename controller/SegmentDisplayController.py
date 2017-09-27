@@ -75,7 +75,7 @@ class SegmentDisplayController(Thread):
 
                 if number == 1:
                     # fast blink last second
-                    frequency = 3
+                    frequency = 2
                 elif number == 0:
                     frequency = 5
 
@@ -158,6 +158,7 @@ class SegmentDisplayController(Thread):
 
 
     def run_countdown_trigger(self, seconds, init_seconds):
+        logging.debug("SegmentDisplayController.run_countdown_trigger({0}, {1})".format(seconds, init_seconds))
         self._start_time = datetime.datetime.now()
         self._seconds = seconds
         self._init_seconds = init_seconds
@@ -165,6 +166,7 @@ class SegmentDisplayController(Thread):
 
 
     def run_countdown_photo(self, photo_number):
+        logging.debug("SegmentDisplayController.run_countdown_photo({0})".format(photo_number))
         self._start_time = datetime.datetime.now()
         self._photo_number = photo_number
         self._current_mode = MODE_COUNTDOWN_PHOTO
