@@ -1,5 +1,6 @@
 import argparse
 import time
+from threading import Thread
 
 from kivy.core.window import Window
 from kivy.logger import Logger
@@ -68,11 +69,14 @@ class Controller(object):
         seg_disp_time = self.conf.get("segment_display.time_to_prepare")
 
         self.seg_display.run_countdown_trigger(seg_disp_time,
-                                               seg_disp_time - time_to_prepare,
-                                               4)
+                                               time_to_prepare - seg_disp_time)
 
         # wait for trigger delay
         time.sleep(time_to_prepare - trigger_delay)
+
+        # run worker to update segment display after trigger delay
+        std = SegementTriggerDelay(self.seg_display.run_countdown_photo, 4, trigger_delay)
+        std.start()
 
         # shoot photo
         photos = self.camera.shoot()
@@ -125,3 +129,18 @@ class Controller(object):
     def switch_mode(self, type):
         self.prepare_conf(type)
         self.app.switch_mode()
+
+class SegementTriggerDelay(Thread):
+    _callable = None
+    _arg = None
+    _delay = None
+
+    def __init__(self, callable, arg, delay):
+        super(SegementTriggerDelay, self).__init__()
+        self._callable = callable
+        self._arg = arg
+        self._delay = delay
+
+    def run(self):
+        time.sleep(self._delay)
+        self._callable(self.arg)
