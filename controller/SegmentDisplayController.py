@@ -46,7 +46,7 @@ class SegmentDisplayController(Thread):
                 self._display = None
 
     def run(self):
-        sleep_time = 0.05
+        sleep_time = 0.1
         frequency = 2  # per second, default
 
         digits = [None] * 4
@@ -75,9 +75,9 @@ class SegmentDisplayController(Thread):
 
                 if number == 1:
                     # fast blink last second
-                    frequency = 5
+                    frequency = 3
                 elif number == 0:
-                    frequency = 10
+                    frequency = 5
 
             elif self._current_mode == MODE_COUNTDOWN_PHOTO:
                 frequency = 2
