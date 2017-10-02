@@ -25,7 +25,7 @@ class Controller(object):
         self.init_conf()
 
     def start(self):
-        self.button = ButtonControllerDummy(self)
+        self.button = ButtonController(self)
         self.camera = Camera4Controller()
         self.creator = Collage4Creator()
         #        self.resizer = ImageResizeDummy()

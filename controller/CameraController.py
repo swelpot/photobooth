@@ -10,10 +10,11 @@ from util.ImageResize import ImageResize
 
 
 class CameraController(object):
-    def __init__(self, controller, target_path_org, target_path_resize):
+    def __init__(self, controller, target_path_org, target_path_resize, rotate):
         self.controller = controller
         self.target_path_org = target_path_org
         self.target_path_resize = target_path_resize
+        self.rotate = rotate
 
         gp.use_python_logging(mapping={
             gp.GP_LOG_ERROR: logging.INFO,
@@ -90,7 +91,7 @@ class CameraController(object):
         #error = gp.gp_camera_exit(self.camera, self.context)
         #time.sleep(2)
 
-        ir = ImageResize(self.target_path_resize, 900, 600)
+        ir = ImageResize(self.target_path_resize, 900, 600, self.rotate)
         filename = ir.resize_async(str(target_abs))
 
         return filename

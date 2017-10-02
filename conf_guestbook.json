@@ -6,7 +6,7 @@
 
 	"app.video_loop": "../guestbook_loop.mp4",
 	"app.video_buttonpressed": "../guestbook_countdown.mp4",
-	"app.time_to_prepare": 13, // seconds until the shoot screen in countdown video
+	"app.time_to_prepare": 11.5, // seconds until the shoot screen in countdown video
 	"app.video_background_color_r": 165,
 	"app.video_background_color_g": 155,
 	"app.video_background_color_b": 249,

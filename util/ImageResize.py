@@ -6,16 +6,17 @@ from wand.image import Image
 import ntpath
 
 class ImageResize(object):
-    def __init__(self, path, width, height):
+    def __init__(self, path, width, height, rotate):
         self.path = path
         self.width = width
         self.height = height
+        self.rotate = rotate
 
     def resize(self, file):
         Logger.debug("ImageResize.resize() with {0}".format(file))
         target = self.path + ntpath.basename(file)
 
-        w = Worker(file, target, self.width, self.height)
+        w = Worker(file, target, self.width, self.height, self.rotate)
         w.run()
 
         return target
@@ -31,7 +32,7 @@ class ImageResize(object):
 
 
 class Worker(Thread):
-    def __init__(self, file, target, width, height):
+    def __init__(self, file, target, width, height, rotate):
         super(Worker, self).__init__()
         self.daemon = True
 
@@ -39,12 +40,15 @@ class Worker(Thread):
         self.target = target
         self.width = width
         self.height = height
+        self.rotate = rotate
 
     def run(self):
         start = datetime.datetime.now()
 
         with Image(filename = self.file) as img:
             img.sample(self.width, self.height)
+            if self.rotate:
+                img.rotate(180)
             img.format = 'jpeg'
             img.save(filename = self.target)
 

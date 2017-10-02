@@ -33,11 +33,12 @@ class Controller(object):
         self.button = ButtonController(self)
         self.camera = Camera4Controller(self,
                                         self.conf.get("photo.path_target") + self.conf.get("photo.path_originals"),
-                                        self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"))
+                                        self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
+                                        self.conf.get("photo.rotate_image"))
         self.creator = Collage4Creator()
-        self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
-                                   Window.size[0],
-                                   Window.size[1])
+        # self.resizer = ImageResize(self.conf.get("photo.path_target") + self.conf.get("photo.path_resized"),
+        #                            Window.size[0],
+        #                            Window.size[1])
         self.seg_display = SegmentDisplayController()
 
         self.camera.initCamera()

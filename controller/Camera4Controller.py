@@ -10,8 +10,8 @@ from controller.CameraController import CameraController
 
 
 class Camera4Controller(CameraController):
-    def __init__(self, controller, target_path_org, target_path_resize):
-        super(Camera4Controller, self).__init__(controller, target_path_org, target_path_resize)
+    def __init__(self, controller, target_path_org, target_path_resize, rotate):
+        super(Camera4Controller, self).__init__(controller, target_path_org, target_path_resize, rotate)
 
 
     def shoot(self, capture_callback):
