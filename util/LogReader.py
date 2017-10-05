@@ -24,7 +24,7 @@ class LogReader(Thread):
 
         while True:
             if self.active:
-                logging.debug("LogReader: reading log file {0}".format(self.log_file))
+                #logging.debug("LogReader: reading log file {0}".format(self.log_file))
                 inFile = open(self.log_file, 'r')
                 inFile.seek(fileBytePos)
 
