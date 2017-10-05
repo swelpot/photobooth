@@ -25,7 +25,7 @@ class ImageResize(object):
         Logger.debug("ImageResize.resize_async() with {0}".format(file))
         target = self.path + ntpath.basename(file)
 
-        w = Worker(file, target, self.width, self.height)
+        w = Worker(file, target, self.width, self.height, self.rotate)
         w.start()
 
         return target
