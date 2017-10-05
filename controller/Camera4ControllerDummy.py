@@ -2,7 +2,7 @@ import time
 from kivy.logger import Logger
 
 class Camera4Controller(object):
-    def __init__(self, controller, target_path_org, target_path_resize):
+    def __init__(self, controller, target_path_org, target_path_resize, rotate):
         pass
 
     def shoot(self, capture_callback):
