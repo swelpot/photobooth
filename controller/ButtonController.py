@@ -20,6 +20,7 @@ class ButtonController(Thread):
         GPIO.setup(PIN_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(PIN_RELAIS, GPIO.OUT)
 
+        self.lights_on()
 
     def run(self):
         while True:
