@@ -171,6 +171,10 @@ class SegmentDisplayController(Thread):
         self._photo_number = photo_number
         self._current_mode = MODE_COUNTDOWN_PHOTO
 
+    def run_loop(self):
+        logging.debug("SegmentDisplayController.run_loop()")
+        self._current_mode = MODE_LOOP
+
 
 if __name__ == '__main__':
     d = SegmentDisplayController()
