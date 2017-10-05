@@ -41,6 +41,7 @@ class SegmentDisplayController(Thread):
             # Initialize the display. Must be called once before using the display.
             try:
                 self._display.begin()
+                self._display.set_invert(True)
             except:
                 logging.error("No 7-Segment-Display found. Proceeding without display!")
                 self._display = None
