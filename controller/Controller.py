@@ -16,6 +16,7 @@ from util.ImageResize import ImageResize
 #from util.InstagramUpload import InstagramUpload
 from util.PhotoStore import PhotoStore
 from util.PrintSpooler import PrintSpooler
+from thread import start_new_thread
 
 
 class Controller(object):
@@ -79,7 +80,7 @@ class Controller(object):
         time_to_prepare = self.conf.get("app.time_to_prepare")
         seg_disp_time = self.conf.get("segment_display.time_to_prepare")
 
-        self.button.lights_countdown(time_to_prepare)
+        start_new_thread(self.button.lights_countdown, (time_to_prepare,))
 
         # trigger switch to countdown screen
         self.app.show_button_pressed_screen_async()
