@@ -5,7 +5,7 @@ import time
 import RPi.GPIO as GPIO
 
 
-PIN_BUTTON = 18
+PIN_BUTTON = 12
 PIN_RELAIS = 16
 
 
@@ -62,4 +62,11 @@ class MyController():
 if __name__ == '__main__':
     buttonController = ButtonController(MyController())
     buttonController.start()
+    buttonController.lights_off()
+    time.sleep(2)
+    buttonController.lights_on()
+    time.sleep(2)
+    buttonController.lights_off()
+    time.sleep(2)
+
     time.sleep(60)
