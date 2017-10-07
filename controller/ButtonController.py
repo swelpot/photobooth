@@ -35,10 +35,10 @@ class ButtonController(Thread):
         Logger.debug("ButtonController.buttonPressed()")
         self.controller.button_pressed()
 
-    def lights_off(self):
+    def lights_on(self):
         GPIO.output(PIN_RELAIS, GPIO.HIGH)
 
-    def lights_on(self):
+    def lights_off(self):
         GPIO.output(PIN_RELAIS, GPIO.LOW)
 
     def lights_countdown(self, duration):
