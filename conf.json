@@ -1,5 +1,5 @@
 {
-	"project_name": "test",
+	"project_name": "colawedding",
 
 	"controller.mode_conf_guestbook": "conf_guestbook.json",
 	"controller.mode_conf_party": "conf_party.json",
@@ -18,7 +18,7 @@
 
 	"camera.trigger_delay": 2, //how long does the camera need to actually take the photo
 
-	"app.touch_trigger": true,
+	"app.touch_trigger": false,
 	//"app.imagemagick_path": "/usr/local/Cellar/imagemagick@6/6.9.9-10/bin/",
 	"app.imagemagick_path": "/usr/bin/",
 
