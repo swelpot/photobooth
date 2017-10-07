@@ -43,7 +43,7 @@ class ButtonController(Thread):
 
     def lights_countdown(self, duration):
         counter = duration
-        while counter >= 0:
+        while counter >= -1:
             #print "Counter: {0}".format(counter)
             sleeptime = 1.0
             if counter <= 1.0:
