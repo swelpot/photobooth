@@ -9,7 +9,7 @@
 	"pushover.message_title": "Photobooth",
 	"pushover.device": "iphonestefan",
 
-	"photo.path_target": "../photos/",
+	"photo.path_target": "/mnt/colawedding/photos/",
 	"photo.path_originals": "org/",
 	"photo.path_collage": "collage/",
 	"photo.path_resized": "resized/",
